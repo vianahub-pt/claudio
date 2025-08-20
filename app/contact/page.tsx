@@ -1,9 +1,82 @@
+"use client"
+
+import type React from "react"
+
+import { useState } from "react"
 import SectionTitle from "@/components/sectionTitle"
-import { Mail, MapPin, Clock } from "lucide-react"
+import { Mail, MapPin, Clock, Send } from "lucide-react"
 
 export default function Contact() {
   const phoneNumber = "351924243818" // Sem o "+" para o WhatsApp
   const emailAddress = "claudioantunessil@gmail.com"
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitMessage, setSubmitMessage] = useState("")
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitMessage("")
+
+    try {
+      const formDataToSend = new FormData()
+
+      // Headers e dados conforme especificação da API
+      const correlationId = crypto.randomUUID()
+
+      formDataToSend.append("from", "vianahub@vianahub.pt")
+      formDataToSend.append("to", "claudioantunessil@gmail.com")
+      formDataToSend.append("subject", `Contacto do site: ${formData.subject}`)
+      formDataToSend.append("body", formData.message)
+      formDataToSend.append("templateCode", "ClaudioContact")
+      formDataToSend.append("metadata[0].Name", formData.name)
+      formDataToSend.append("metadata[0].Email", formData.email)
+      formDataToSend.append("metadata[0].Phone", formData.phone)
+      formDataToSend.append("metadata[0].Company", "Site Cláudio Eletricista")
+
+      const response = await fetch("https://www.mail.vianahub.pt/contacts/send-mail", {
+        method: "POST",
+        headers: {
+          "x-user": "Claudio Eletricista",
+          "x-channel": "Site Oficial",
+          "x-correlationid": correlationId,
+        },
+        body: formDataToSend,
+      })
+
+      if (response.ok) {
+        setSubmitMessage("Mensagem enviada com sucesso! Entraremos em contacto em breve.")
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          subject: "",
+          message: "",
+        })
+      } else {
+        setSubmitMessage("Erro ao enviar mensagem. Tente novamente ou contacte-nos diretamente.")
+      }
+    } catch (error) {
+      setSubmitMessage("Erro ao enviar mensagem. Tente novamente ou contacte-nos diretamente.")
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <>
@@ -99,9 +172,110 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="max-w-2xl mx-auto mt-16 text-center">
-              <h3 className="text-2xl font-bold mb-6">Entre em Contacto</h3>
-              <p className="text-gray-600 mb-8">Escolha a forma mais conveniente para entrar em contacto connosco:</p>
+            <div className="max-w-2xl mx-auto mt-16">
+              <div className="bg-gray-50 p-8 rounded-lg">
+                <h3 className="text-2xl font-bold mb-6 text-center">Envie-nos uma Mensagem</h3>
+
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                      Nome
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="O seu nome"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="o.seu.email@exemplo.com"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                      Telefone
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="+351 xxx xxx xxx"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                      Assunto
+                    </label>
+                    <input
+                      type="text"
+                      id="subject"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Assunto da sua mensagem"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                      Mensagem
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      rows={5}
+                      className="w-full px-4 py-3 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-vertical"
+                      placeholder="Descreva o seu projeto ou dúvida..."
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-8 py-3 rounded-md font-semibold transition-colors inline-flex items-center justify-center"
+                  >
+                    <Send size={20} className="mr-2" />
+                    {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
+                  </button>
+
+                  {submitMessage && (
+                    <div
+                      className={`p-4 rounded-md ${submitMessage.includes("sucesso") ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}
+                    >
+                      {submitMessage}
+                    </div>
+                  )}
+                </form>
+              </div>
+            </div>
+
+            <div className="max-w-2xl mx-auto mt-8 text-center">
+              <p className="text-gray-600 mb-8">
+                Ou escolha a forma mais conveniente para entrar em contacto connosco:
+              </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
