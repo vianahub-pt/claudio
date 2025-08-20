@@ -199,7 +199,7 @@ export default function Services() {
                     </h2>
                     <p className="text-gray-900 text-lg mb-6">{activeService.description}</p>
 
-                    <h3 className="text-xl font-semibold mb-4">
+                    <h3 className="text-gray-900 text-xl font-semibold mb-4">
                       O que incluímos:
                     </h3>
                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -209,7 +209,7 @@ export default function Services() {
                             size={20}
                             className="text-blue-600 mr-2 flex-shrink-0"
                           />
-                          <span className="text-blue-700">{item}</span>
+                          <span className="text-blue-600">{item}</span>
                         </li>
                       ))}
                     </ul>
