@@ -2,77 +2,57 @@ trigger:
   branches:
     include:
       - develop
+      - main
 
 pool:
   vmImage: "ubuntu-latest"
 
 variables:
-  NODE_VERSION: "20.x"
-  AZURE_WEBAPP_NAME: "claudio-eletricista-dev"
+  - name: NODE_VERSION
+    value: "18.x"
+  - group: ClaudioEletricistaSecrets
 
 steps:
-  - task: UseNode@1
+  - task: NodeTool@0
     inputs:
-      version: "$(NODE_VERSION)"
-    displayName: "🟢 Usar Node.js $(NODE_VERSION)"
+      versionSpec: "18.x"
+    displayName: "Install Node.js"
+
+  - script: npm install -g pnpm
+    displayName: "Install pnpm"
 
   - task: Cache@2
     inputs:
-      key: 'npm | "$(Agent.OS)" | package-lock.json'
+      key: 'pnpm | "$(Agent.OS)" | pnpm-lock.yaml'
       restoreKeys: |
-        npm | "$(Agent.OS)"
-      path: $(Pipeline.Workspace)/.npm
-    displayName: "📦 Cache de dependências npm"
+        pnpm | "$(Agent.OS)"
+      path: $(Pipeline.Workspace)/.pnpm-store
+    displayName: "Cache pnpm dependencies"
 
   - script: |
-      npm config set cache $(Pipeline.Workspace)/.npm --global
-    displayName: "🛠️ Configurar cache do npm"
+      pnpm config set store-dir $(Pipeline.Workspace)/.pnpm-store
+      pnpm install --frozen-lockfile
+    displayName: "Install dependencies with pnpm"
 
   - script: |
-      npm ci
-    displayName: "📥 Instalar dependências com npm ci"
-
-  - script: |
-      npm run build
-    displayName: "🔨 Build do projeto Next.js"
-
-  - task: CopyFiles@2
-    inputs:
-      SourceFolder: "."
-      Contents: |
-        .next/**
-        public/**
-        components/**
-        package.json
-        package-lock.json
-        next.config.js
-        pages/**
-        app/**
-        styles/**
-        tsconfig.json
-        postcss.config.js
-        tailwind.config.js
-      TargetFolder: "$(Build.ArtifactStagingDirectory)/app"
-    displayName: "📂 Copiar arquivos para publicação"
+      pnpm run build
+    displayName: "Build project"
 
   - task: ArchiveFiles@2
+    displayName: "Archive files"
     inputs:
-      rootFolderOrFile: "$(Build.ArtifactStagingDirectory)/app"
+      rootFolderOrFile: "$(System.DefaultWorkingDirectory)"
       includeRootFolder: false
-      archiveType: "zip"
-      archiveFile: "$(Build.ArtifactStagingDirectory)/app.zip"
+      archiveType: zip
+      archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       replaceExistingArchive: true
-    displayName: "🗜️ Arquivar aplicação"
 
-  - task: PublishBuildArtifacts@1
-    inputs:
-      PathtoPublish: "$(Build.ArtifactStagingDirectory)/app.zip"
-      ArtifactName: "drop"
-    displayName: "🚀 Publicar artefato de build"
+  - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    artifact: drop
 
-  - task: AzureWebApp@1
+  - task: AzureStaticWebApp@0
     inputs:
-      azureSubscription: "VianaHub (f4c7451f-95bd-4e98-9161-535d7dde38ef)"
-      appName: "$(AZURE_WEBAPP_NAME)"
-      package: "$(Build.ArtifactStagingDirectory)/app.zip"
-    displayName: "🌐 Deploy para Azure Web App"
+      app_location: "out"
+      output_location: ""
+      azure_static_web_apps_api_token: "$(DEPLOYMENT_TOKEN)"
+    displayName: "Deploy to Azure Static Web App"
