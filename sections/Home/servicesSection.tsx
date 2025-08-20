@@ -64,7 +64,7 @@ const ServicesSection = () => {
               className="bg-white rounded-lg shadow-lg p-6 transition-all hover:shadow-xl hover:-translate-y-1"
             >
               <div className="mb-4">{service.icon}</div>
-              <h3 className="text-xl font-bold mb-3">{service.title}</h3>
+              <h3 className="text-blue-700 text-xl font-bold mb-3">{service.title}</h3>
               <p className="text-gray-600 mb-4">{service.description}</p>
               <Link
                 href={service.link}
