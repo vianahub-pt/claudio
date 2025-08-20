@@ -4,7 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { useState } from "react"
 
-const header = () => {
+const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const getLinkClasses = () => {
@@ -129,4 +129,4 @@ const header = () => {
   )
 }
 
-export default header
+export default Header
