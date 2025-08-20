@@ -26,7 +26,10 @@ const AboutSection = () => {
                 className="w-full h-auto object-cover"
               />
             </div>
-            <div className="absolute -bottom-6 -right-6 bg-blue-600 text-white p-4 rounded-lg shadow-lg hidden md:block">
+            <div
+              className="absolute -bottom-6 -right-6 !bg-blue-600 !text-white p-4 rounded-lg shadow-lg hidden md:block"
+              style={{ backgroundColor: "#2563eb", color: "#ffffff" }}
+            >
               <p className="font-bold text-xl">+15</p>
               <p>Anos de Experiência</p>
             </div>
@@ -49,15 +52,18 @@ const AboutSection = () => {
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
               {features.map((feature, index) => (
                 <li key={index} className="flex items-center">
-                  <CheckCircle size={20} className="text-blue-700 mr-2 flex-shrink-0" />
-                  <span className="text-blue-700">{feature}</span>
+                  <CheckCircle size={20} className="!text-blue-700 mr-2 flex-shrink-0" style={{ color: "#1d4ed8" }} />
+                  <span className="!text-blue-700" style={{ color: "#1d4ed8" }}>
+                    {feature}
+                  </span>
                 </li>
               ))}
             </ul>
 
             <Link
               href="/about"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-semibold transition-colors"
+              className="!bg-blue-600 hover:!bg-blue-700 !text-white px-6 py-3 rounded-md font-semibold transition-colors"
+              style={{ backgroundColor: "#2563eb", color: "#ffffff" }}
             >
               Saiba Mais
             </Link>

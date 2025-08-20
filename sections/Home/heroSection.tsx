@@ -16,7 +16,9 @@ const HeroSection = () => {
           <div className="md:w-1/2">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900">
               Claudio <br />
-              <p className="text-blue-700">Eletricista e</p>
+              <p className="!text-blue-700" style={{ color: "#1d4ed8" }}>
+                Eletricista e
+              </p>
               <p className="text-gray-900">Picheleiro</p>
             </h1>
 
