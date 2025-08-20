@@ -261,13 +261,13 @@ ${formData.message}
                         value={formData.name}
                         onChange={handleChange}
                         className={`w-full px-4 py-3 border rounded-md focus:ring-blue-500 focus:border-blue-500 ${
-                          errors.name ? "border-red-500" : "border-gray-300"
+                          hasSubmitted && errors.name ? "border-red-500" : "border-gray-300"
                         }`}
                         placeholder="O seu nome"
                         aria-describedby={errors.name ? "name-error" : undefined}
                         aria-invalid={errors.name ? "true" : "false"}
                       />
-                      {errors.name && (
+                      {hasSubmitted && errors.name && (
                         <p id="name-error" className="error-message flex items-center mt-1" role="alert">
                           <AlertCircle size={16} className="mr-1" aria-hidden="true" />
                           {errors.name}
@@ -290,13 +290,13 @@ ${formData.message}
                         value={formData.email}
                         onChange={handleChange}
                         className={`w-full px-4 py-3 border rounded-md focus:ring-blue-500 focus:border-blue-500 ${
-                          errors.email ? "border-red-500" : "border-gray-300"
+                          hasSubmitted && errors.email ? "border-red-500" : "border-gray-300"
                         }`}
                         placeholder="o.seu.email@exemplo.com"
-                        aria-describedby={errors.email ? "email-error" : undefined}
-                        aria-invalid={errors.email ? "true" : "false"}
+                        aria-describedby={hasSubmitted && errors.email ? "email-error" : undefined}
+                        aria-invalid={hasSubmitted && errors.email ? "true" : "false"}
                       />
-                      {errors.email && (
+                      {hasSubmitted && errors.email && (
                         <p id="email-error" className="error-message flex items-center mt-1" role="alert">
                           <AlertCircle size={16} className="mr-1" aria-hidden="true" />
                           {errors.email}
@@ -347,10 +347,10 @@ ${formData.message}
                         value={formData.subject}
                         onChange={handleChange}
                         className={`w-full px-4 py-3 border rounded-md focus:ring-blue-500 focus:border-blue-500 ${
-                          errors.subject ? "border-red-500" : "border-gray-300"
+                          hasSubmitted && errors.subject ? "border-red-500" : "border-gray-300"
                         }`}
-                        aria-describedby={errors.subject ? "subject-error" : undefined}
-                        aria-invalid={errors.subject ? "true" : "false"}
+                        aria-describedby={hasSubmitted && errors.subject ? "subject-error" : undefined}
+                        aria-invalid={hasSubmitted && errors.subject ? "true" : "false"}
                       >
                         <option value="">Selecione um assunto</option>
                         <option value="Orçamento - Instalação Elétrica">Orçamento - Instalação Elétrica</option>
@@ -359,7 +359,7 @@ ${formData.message}
                         <option value="Informações Gerais">Informações Gerais</option>
                         <option value="Outro">Outro</option>
                       </select>
-                      {errors.subject && (
+                      {hasSubmitted && errors.subject && (
                         <p id="subject-error" className="error-message flex items-center mt-1" role="alert">
                           <AlertCircle size={16} className="mr-1" aria-hidden="true" />
                           {errors.subject}
@@ -382,13 +382,13 @@ ${formData.message}
                         value={formData.message}
                         onChange={handleChange}
                         className={`w-full px-4 py-3 border rounded-md focus:ring-blue-500 focus:border-blue-500 ${
-                          errors.message ? "border-red-500" : "border-gray-300"
+                          hasSubmitted && errors.message ? "border-red-500" : "border-gray-300"
                         }`}
                         placeholder="Descreva o seu projeto ou dúvida..."
-                        aria-describedby={errors.message ? "message-error" : undefined}
-                        aria-invalid={errors.message ? "true" : "false"}
+                        aria-describedby={hasSubmitted && errors.message ? "message-error" : undefined}
+                        aria-invalid={hasSubmitted && errors.message ? "true" : "false"}
                       />
-                      {errors.message && (
+                      {hasSubmitted && errors.message && (
                         <p id="message-error" className="error-message flex items-center mt-1" role="alert">
                           <AlertCircle size={16} className="mr-1" aria-hidden="true" />
                           {errors.message}
