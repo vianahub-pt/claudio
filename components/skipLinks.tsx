@@ -1,5 +1,3 @@
-"use client"
-
 const SkipLinks = () => {
   return (
     <div className="sr-only focus-within:not-sr-only">
