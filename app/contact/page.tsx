@@ -238,7 +238,7 @@ ${formData.message}
                       <Clock className="text-blue-600" size={24} />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-lg mb-1">
+                      <h3 className="text-blue-700 font-semibold text-lg mb-1">
                         Horário de Funcionamento
                       </h3>
                       <div className="text-gray-600">
