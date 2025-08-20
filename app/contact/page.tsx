@@ -96,6 +96,8 @@ ${formData.message}
       window.location.href = mailtoLink
 
       setSubmitStatus("success")
+      setHasSubmitted(false)
+      setErrors({})
       setFormData({
         name: "",
         email: "",
