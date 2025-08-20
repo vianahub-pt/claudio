@@ -178,7 +178,7 @@ export default function Services() {
                   className={`px-4 py-3 text-lg font-medium transition-colors border-b-2 -mb-px ${
                     activeTab === service.id
                       ? "border-blue-600 text-blue-600"
-                      : "border-transparent text-gray-400 hover:text-blue-600"
+                      : "border-transparent text-gray-900 hover:text-blue-600"
                   }`}
                 >
                   {service.title}
