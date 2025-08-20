@@ -28,7 +28,7 @@ const CtaSection = () => {
               className="flex items-center justify-center bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 px-6 rounded-md transition-all shadow-md"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Contactar via WhatsApp: +351 924 243 818"
+              aria-label="Contactar via WhatsApp"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
