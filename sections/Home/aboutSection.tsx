@@ -54,7 +54,7 @@ const AboutSection = () => {
               cada projeto.
             </p>
 
-            <p className=" text-gray-900 mb-8">
+            <p className="text-gray-900 mb-8">
               Nossa equipa é formada por profissionais qualificados e
               comprometidos em oferecer as melhores soluções para as
               necessidades dos nossos clientes, sempre com preços justos e
