@@ -113,19 +113,13 @@ body {
 /* Links acessíveis */
 a {
   color: var(--primary);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
+  /* Removendo sublinhado padrão dos links */
+  text-decoration: none;
 }
 
 a:hover {
-  text-decoration-thickness: 2px;
-}
-
-a:focus {
-  outline: 2px solid var(--focus);
-  outline-offset: 2px;
-  border-radius: 2px;
+  /* Removendo sublinhado no hover também */
+  text-decoration: none;
 }
 
 /* Navegação sem sublinhado */
@@ -134,7 +128,8 @@ nav a {
 }
 
 nav a:hover {
-  text-decoration: underline;
+  /* Removendo sublinhado no hover da navegação */
+  text-decoration: none;
 }
 
 /* Seções com fundo especial */
