@@ -32,7 +32,7 @@ export default function About() {
           <div className="container mx-auto px-4">
             <div className="max-w-3xl">
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                Quem <span className="text-blue-400">Somos</span>
+                Quem <span className="text-blue-700">Somos</span>
               </h1>
               <p className="text-gray-900 text-xl">
                 Conheça a nossa história, missão e valores que nos guiam na prestação de serviços de excelência.
