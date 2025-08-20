@@ -1,9 +1,7 @@
-"use client";
-
-import Image from "next/image";
-import Link from "next/link";
-import SectionTitle from "@/components/sectionTitle";
-import { CheckCircle } from "lucide-react";
+import Image from "next/image"
+import Link from "next/link"
+import SectionTitle from "@/components/sectionTitle"
+import { CheckCircle } from "lucide-react"
 
 const AboutSection = () => {
   const features = [
@@ -12,13 +10,7 @@ const AboutSection = () => {
     "Materiais de alta qualidade",
     "Garantia nos serviços prestados",
     "Orçamentos sem compromisso",
-  ];
-
-  const handleLinkClick = () => {
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }, 100);
-  };
+  ]
 
   return (
     <section className="py-20 bg-white">
@@ -41,33 +33,23 @@ const AboutSection = () => {
           </div>
 
           <div>
-            <SectionTitle
-              title="Sobre Nós"
-              subtitle="Conheça a Claudio Eletricista e Picheleiro"
-            />
+            <SectionTitle title="Sobre Nós" subtitle="Conheça a Claudio Eletricista e Picheleiro" />
 
             <p className="text-gray-900 mb-6">
-              Somos uma empresa especializada em serviços de eletricidade,
-              canalização e remodelação, atendendo clientes residenciais e
-              comerciais. Com mais de 15 anos de experiência no mercado,
-              garantimos um trabalho de qualidade, segurança e eficiência em
-              cada projeto.
+              Somos uma empresa especializada em serviços de eletricidade, canalização e remodelação, atendendo clientes
+              residenciais e comerciais. Com mais de 15 anos de experiência no mercado, garantimos um trabalho de
+              qualidade, segurança e eficiência em cada projeto.
             </p>
 
             <p className="text-gray-900 mb-8">
-              Nossa equipa é formada por profissionais qualificados e
-              comprometidos em oferecer as melhores soluções para as
-              necessidades dos nossos clientes, sempre com preços justos e
-              transparentes.
+              Nossa equipa é formada por profissionais qualificados e comprometidos em oferecer as melhores soluções
+              para as necessidades dos nossos clientes, sempre com preços justos e transparentes.
             </p>
 
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
               {features.map((feature, index) => (
                 <li key={index} className="flex items-center">
-                  <CheckCircle
-                    size={20}
-                    className="text-blue-700 mr-2 flex-shrink-0"
-                  />
+                  <CheckCircle size={20} className="text-blue-700 mr-2 flex-shrink-0" />
                   <span className="text-blue-700">{feature}</span>
                 </li>
               ))}
@@ -76,7 +58,6 @@ const AboutSection = () => {
             <Link
               href="/about"
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-semibold transition-colors"
-              onClick={handleLinkClick}
             >
               Saiba Mais
             </Link>
@@ -84,7 +65,7 @@ const AboutSection = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default AboutSection;
+export default AboutSection

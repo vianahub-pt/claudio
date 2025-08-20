@@ -1,23 +1,9 @@
-"use client"
-
 import Link from "next/link"
 import Image from "next/image"
-import { usePathname } from "next/navigation"
 
 const header = () => {
-  const pathname = usePathname()
-
-  const isActive = (path: string) => {
-    return pathname === path
-  }
-
-  const getLinkClasses = (path: string) => {
-    const baseClasses =
-      "transition-colors font-medium px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-    const activeClasses = "text-blue-600 bg-blue-50 border-b-2 border-blue-600"
-    const inactiveClasses = "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
-
-    return `${baseClasses} ${isActive(path) ? activeClasses : inactiveClasses}`
+  const getLinkClasses = () => {
+    return "transition-colors font-medium px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 hover:text-blue-600 hover:bg-gray-50"
   }
 
   return (
@@ -44,19 +30,19 @@ const header = () => {
           aria-label="Navegação principal"
           id="main-navigation"
         >
-          <Link href="/" className={getLinkClasses("/")}>
+          <Link href="/" className={getLinkClasses()}>
             Início
           </Link>
-          <Link href="/about" className={getLinkClasses("/about")}>
+          <Link href="/about" className={getLinkClasses()}>
             Quem Somos
           </Link>
-          <Link href="/services" className={getLinkClasses("/services")}>
+          <Link href="/services" className={getLinkClasses()}>
             Serviços
           </Link>
-          <Link href="/projects" className={getLinkClasses("/projects")}>
+          <Link href="/projects" className={getLinkClasses()}>
             Projetos
           </Link>
-          <Link href="/contact" className={getLinkClasses("/contact")}>
+          <Link href="/contact" className={getLinkClasses()}>
             Contacto
           </Link>
         </nav>
