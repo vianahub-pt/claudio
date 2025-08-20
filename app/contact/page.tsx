@@ -224,7 +224,7 @@ ${formData.message}
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-100 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                         placeholder="o.seu.email@exemplo.com"
                       />
                     </div>
@@ -239,7 +239,7 @@ ${formData.message}
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-100 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                         placeholder="+351 xxx xxx xxx"
                       />
                     </div>
@@ -253,7 +253,7 @@ ${formData.message}
                         name="subject"
                         value={formData.subject}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-100 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                       >
                         <option value="">Selecione um assunto</option>
                         <option value="Orçamento - Instalação Elétrica">Orçamento - Instalação Elétrica</option>
@@ -274,7 +274,7 @@ ${formData.message}
                         rows={5}
                         value={formData.message}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-100 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Descreva o seu projeto ou dúvida..."
                       />
                     </div>
