@@ -19,6 +19,14 @@ export default function Contact() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState("")
+  const [hasSubmitted, setHasSubmitted] = useState(false)
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -26,17 +34,58 @@ export default function Contact() {
       ...prev,
       [name]: value,
     }))
+
+    if (hasSubmitted && errors[name as keyof typeof errors]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }))
+    }
+  }
+
+  const validateForm = () => {
+    const newErrors = {
+      name: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
+    }
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Nome é obrigatório"
+    }
+    if (!formData.email.trim()) {
+      newErrors.email = "Email é obrigatório"
+    }
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Telefone é obrigatório"
+    }
+    if (!formData.subject.trim()) {
+      newErrors.subject = "Assunto é obrigatório"
+    }
+    if (!formData.message.trim()) {
+      newErrors.message = "Mensagem é obrigatória"
+    }
+
+    setErrors(newErrors)
+    return Object.values(newErrors).every((error) => error === "")
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setHasSubmitted(true)
+
+    if (!validateForm()) {
+      return
+    }
+
     setIsSubmitting(true)
     setSubmitMessage("")
 
     try {
       const formDataToSend = new FormData()
 
-      // Headers e dados conforme especificação da API
       const correlationId = crypto.randomUUID()
 
       formDataToSend.append("from", "vianahub@vianahub.pt")
@@ -68,6 +117,14 @@ export default function Contact() {
           subject: "",
           message: "",
         })
+        setHasSubmitted(false)
+        setErrors({
+          name: "",
+          email: "",
+          phone: "",
+          subject: "",
+          message: "",
+        })
       } else {
         setSubmitMessage("Erro ao enviar mensagem. Tente novamente ou contacte-nos diretamente.")
       }
@@ -81,7 +138,6 @@ export default function Contact() {
   return (
     <>
       <main id="main-content">
-        {/* Banner */}
         <section className="hero-section text-white py-20" role="banner">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl">
@@ -95,7 +151,6 @@ export default function Contact() {
           </div>
         </section>
 
-        {/* Informações de Contacto */}
         <section className="py-20 bg-white" aria-labelledby="contact-info-heading">
           <div className="container mx-auto px-4">
             <SectionTitle title="Fale Connosco" subtitle="Estamos aqui para ajudar" level={2} />
@@ -180,6 +235,7 @@ export default function Contact() {
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                       Nome
+                      <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -187,14 +243,18 @@ export default function Contact() {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                        hasSubmitted && errors.name ? "border-red-500" : "border-gray-100"
+                      }`}
                       placeholder="O seu nome"
                     />
+                    {hasSubmitted && errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                   </div>
 
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                       Email
+                      <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="email"
@@ -202,14 +262,18 @@ export default function Contact() {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                        hasSubmitted && errors.email ? "border-red-500" : "border-gray-100"
+                      }`}
                       placeholder="o.seu.email@exemplo.com"
                     />
+                    {hasSubmitted && errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                   </div>
 
                   <div>
                     <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
                       Telefone
+                      <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="tel"
@@ -217,14 +281,18 @@ export default function Contact() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                        hasSubmitted && errors.phone ? "border-red-500" : "border-gray-100"
+                      }`}
                       placeholder="+351 xxx xxx xxx"
                     />
+                    {hasSubmitted && errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
                   </div>
 
                   <div>
                     <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
                       Assunto
+                      <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
@@ -232,14 +300,18 @@ export default function Contact() {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                        hasSubmitted && errors.subject ? "border-red-500" : "border-gray-100"
+                      }`}
                       placeholder="Assunto da sua mensagem"
                     />
+                    {hasSubmitted && errors.subject && <p className="text-red-500 text-sm mt-1">{errors.subject}</p>}
                   </div>
 
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
                       Mensagem
+                      <span className="text-red-500">*</span>
                     </label>
                     <textarea
                       id="message"
@@ -247,9 +319,12 @@ export default function Contact() {
                       value={formData.message}
                       onChange={handleChange}
                       rows={5}
-                      className="w-full px-4 py-3 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-vertical"
+                      className={`w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-vertical ${
+                        hasSubmitted && errors.message ? "border-red-500" : "border-gray-100"
+                      }`}
                       placeholder="Descreva o seu projeto ou dúvida..."
                     />
+                    {hasSubmitted && errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
                   </div>
 
                   <button
@@ -310,7 +385,6 @@ export default function Contact() {
           </div>
         </section>
 
-        {/* CTA */}
         <section className="py-16 bg-blue-600 text-white" aria-labelledby="emergency-heading">
           <div className="container mx-auto px-4 text-center">
             <h2 id="emergency-heading" className="text-3xl font-bold mb-4">
