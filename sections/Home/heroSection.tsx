@@ -28,7 +28,8 @@ const HeroSection = () => {
           <div className="md:w-1/2">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900">
               Claudio <br />
-              <span className="text-blue-700">Eletricista e Picheleiro</span>
+              <span className="text-blue-700">Eletricista e</span>
+              <span className="text-gray-900">Picheleiro</span>
             </h1>
 
             <p className="text-xl mb-8 text-gray-900">
