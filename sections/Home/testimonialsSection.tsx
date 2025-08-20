@@ -1,8 +1,5 @@
-"use client"
-
-import { useState, useEffect } from "react"
 import SectionTitle from "@/components/sectionTitle"
-import { Star, ChevronLeft, ChevronRight } from "lucide-react"
+import { Star } from "lucide-react"
 
 const TestimonialsSection = () => {
   const testimonials = [
@@ -36,82 +33,31 @@ const TestimonialsSection = () => {
     },
   ]
 
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [isPaused, setIsPaused] = useState(false)
-
-  useEffect(() => {
-    if (!isPaused) {
-      const interval = setInterval(() => {
-        setCurrentIndex((prevIndex) => (prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1))
-      }, 4000) // Change slide every 4 seconds
-
-      return () => clearInterval(interval)
-    }
-  }, [isPaused, testimonials.length])
-
-  const nextTestimonial = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1))
-  }
-
-  const prevTestimonial = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1))
-  }
-
   return (
     <section className="py-20 bg-blue-600 text-white">
       <div className="container mx-auto px-4">
         <SectionTitle title="Testemunhos" subtitle="O que os nossos clientes dizem sobre nós" center light />
 
-        <div className="max-w-3xl mx-auto">
-          <div className="relative" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8 shadow-lg transition-all duration-500">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          {testimonials.map((testimonial) => (
+            <div key={testimonial.id} className="bg-white/10 backdrop-blur-sm rounded-lg p-6 shadow-lg">
               <div className="flex mb-4">
-                {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
+                {[...Array(testimonial.rating)].map((_, i) => (
                   <Star key={i} size={20} className="text-yellow-400 fill-yellow-400" />
                 ))}
-                {[...Array(5 - testimonials[currentIndex].rating)].map((_, i) => (
-                  <Star key={i + testimonials[currentIndex].rating} size={20} className="text-yellow-400" />
+                {[...Array(5 - testimonial.rating)].map((_, i) => (
+                  <Star key={i + testimonial.rating} size={20} className="text-yellow-400" />
                 ))}
               </div>
 
-              <p className="text-lg italic mb-6">"{testimonials[currentIndex].text}"</p>
+              <p className="text-lg italic mb-6">"{testimonial.text}"</p>
 
               <div>
-                <p className="font-bold text-xl">{testimonials[currentIndex].name}</p>
-                <p className="text-white/80">{testimonials[currentIndex].location}</p>
+                <p className="font-bold text-xl">{testimonial.name}</p>
+                <p className="text-white/80">{testimonial.location}</p>
               </div>
             </div>
-
-            <div className="flex justify-center mt-8 space-x-4">
-              <button
-                onClick={prevTestimonial}
-                className="bg-white/20 hover:bg-white/30 rounded-full p-2 transition-colors"
-                aria-label="Testemunho anterior"
-              >
-                <ChevronLeft size={24} />
-              </button>
-              <button
-                onClick={nextTestimonial}
-                className="bg-white/20 hover:bg-white/30 rounded-full p-2 transition-colors"
-                aria-label="Próximo testemunho"
-              >
-                <ChevronRight size={24} />
-              </button>
-            </div>
-
-            <div className="flex justify-center mt-4">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentIndex(index)}
-                  className={`w-3 h-3 mx-1 rounded-full transition-colors ${
-                    index === currentIndex ? "bg-white" : "bg-white/40"
-                  }`}
-                  aria-label={`Ver testemunho ${index + 1}`}
-                />
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
