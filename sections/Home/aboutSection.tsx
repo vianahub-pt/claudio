@@ -68,7 +68,7 @@ const AboutSection = () => {
                     size={20}
                     className="text-blue-700 mr-2 flex-shrink-0"
                   />
-                  <span>{feature}</span>
+                  <span className="text-blue-700">{feature}</span>
                 </li>
               ))}
             </ul>
