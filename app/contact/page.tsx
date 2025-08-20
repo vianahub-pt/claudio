@@ -171,7 +171,7 @@ ${formData.message}
                       </svg>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-lg mb-1">WhatsApp</h3>
+                      <h3 className="text-blue-700 font-semibold text-lg mb-1">WhatsApp</h3>
                       <p className="text-gray-600">
                         <a
                           href={`https://wa.me/${phoneNumber}`}
@@ -197,7 +197,7 @@ ${formData.message}
                       <Mail className="text-blue-600" size={24} />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-lg mb-1">Email</h3>
+                      <h3 className="text-blue-700 font-semibold text-lg mb-1">Email</h3>
                       <p className="text-gray-600">
                         <a
                           href={`mailto:${emailAddress}`}
@@ -221,7 +221,7 @@ ${formData.message}
                       <MapPin className="text-blue-600" size={24} />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-lg mb-1">Morada</h3>
+                      <h3 className="text-blue-700 font-semibold text-lg mb-1">Morada</h3>
                       <address className="text-gray-600 not-italic">
                         Av. António José de Almeida 70
                         <br />
