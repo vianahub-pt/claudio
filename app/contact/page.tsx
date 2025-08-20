@@ -249,9 +249,6 @@ ${formData.message}
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                         Nome{" "}
-                        <span className="text-red-600" aria-label="obrigatório">
-                          *
-                        </span>
                       </label>
                       <input
                         type="text"
@@ -260,9 +257,7 @@ ${formData.message}
                         required
                         value={formData.name}
                         onChange={handleChange}
-                        className={`w-full px-4 py-3 border rounded-md focus:ring-blue-500 focus:border-blue-500 ${
-                          hasSubmitted && errors.name ? "border-red-500" : "border-gray-300"
-                        }`}
+                        className={`w-full px-4 py-3 border rounded-md border-gray-300 focus:ring-blue-500 focus:border-blue-500`}
                         placeholder="O seu nome"
                         aria-describedby={errors.name ? "name-error" : undefined}
                         aria-invalid={errors.name ? "true" : "false"}
