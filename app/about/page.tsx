@@ -35,7 +35,7 @@ export default function About() {
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
                 Quem <span className="text-blue-400">Somos</span>
               </h1>
-              <p className="text-xl">
+              <p className="text-gray-900 text-xl">
                 Conheça a nossa história, missão e valores que nos guiam na
                 prestação de serviços de excelência.
               </p>
@@ -53,7 +53,7 @@ export default function About() {
                   subtitle="Como tudo começou"
                 />
 
-                <p className="mb-4">
+                <p className="text-gray-900 mb-4">
                   A Claudio Eletricista e Picheleiro nasceu da paixão e
                   dedicação do seu fundador, Claudio Antunes, por oferecer
                   soluções de qualidade em serviços elétricos e de canalização.
@@ -63,7 +63,7 @@ export default function About() {
                   técnicas.
                 </p>
 
-                <p className="mb-4">
+                <p className="text-blue-700 mb-4">
                   Em 2010, decidiu fundar a sua própria empresa com o objetivo
                   de oferecer serviços personalizados e de alta qualidade,
                   focados nas necessidades específicas de cada cliente. Desde
@@ -72,7 +72,7 @@ export default function About() {
                   profissionalismo.
                 </p>
 
-                <p>
+                <p className="text-gray-900 mb-4">
                   Hoje, a Claudio Eletricista e Picheleiro é reconhecida em como
                   uma referência em serviços de eletricidade, canalização e
                   remodelação, atendendo tanto clientes residenciais quanto
