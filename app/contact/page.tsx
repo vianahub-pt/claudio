@@ -127,9 +127,9 @@ ${formData.message}
           <div className="container mx-auto px-4">
             <div className="max-w-3xl">
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                <span className="text-blue-400">Contacto</span>
+                <span className="text-blue-700">Contacto</span>
               </h1>
-              <p className="text-xl">
+              <p className="text-gray-900 text-xl">
                 Entre em contacto connosco para solicitar um orçamento gratuito
                 ou esclarecer qualquer dúvida.
               </p>
