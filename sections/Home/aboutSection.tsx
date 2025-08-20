@@ -66,7 +66,7 @@ const AboutSection = () => {
                 <li key={index} className="flex items-center">
                   <CheckCircle
                     size={20}
-                    className="text-blue-600 mr-2 flex-shrink-0"
+                    className="text-blue-700 mr-2 flex-shrink-0"
                   />
                   <span>{feature}</span>
                 </li>
