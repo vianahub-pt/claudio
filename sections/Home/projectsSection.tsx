@@ -1,6 +1,6 @@
-import Image from "next/image";
-import Link from "next/link";
-import SectionTitle from "@/components/sectionTitle";
+import Image from "next/image"
+import Link from "next/link"
+import SectionTitle from "@/components/sectionTitle"
 
 const ProjectsSection = () => {
   const projects = [
@@ -32,20 +32,19 @@ const ProjectsSection = () => {
       image: "/images/trabalho-09.jpg",
       link: "/projects/4",
     },
-  ];
+  ]
 
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
-        <SectionTitle
-          title="Projetos Recentes"
-          subtitle="Conheça alguns dos nossos trabalhos"
-          center
-        />
+        <SectionTitle title="Projetos Recentes" subtitle="Conheça alguns dos nossos trabalhos" center />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
           {projects.map((project) => (
-            <div className="bg-white rounded-lg overflow-hidden shadow-lg transition-all group-hover:shadow-xl">
+            <div
+              key={project.id}
+              className="bg-white rounded-lg overflow-hidden shadow-lg transition-all group hover:shadow-xl"
+            >
               <div className="relative h-64 overflow-hidden">
                 <Image
                   src={project.image || "/placeholder.svg"}
@@ -55,20 +54,14 @@ const ProjectsSection = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
                   <div className="text-white">
-                    <p className="text-sm font-medium text-blue-400 mb-1">
-                      {project.category}
-                    </p>
+                    <p className="text-sm font-medium text-blue-400 mb-1">{project.category}</p>
                     <h3 className="text-xl font-bold">{project.title}</h3>
                   </div>
                 </div>
               </div>
               <div className="p-6">
-                <p className="text-sm font-medium text-blue-600 mb-1">
-                  {project.category}
-                </p>
-                <h3 className="text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors">
-                  {project.title}
-                </h3>
+                <p className="text-sm font-medium text-blue-600 mb-1">{project.category}</p>
+                <h3 className="text-xl font-bold mb-2 group-hover:text-blue-600 transition-colors">{project.title}</h3>
                 <p className="text-gray-600">Clique para ver detalhes</p>
               </div>
             </div>
@@ -85,7 +78,7 @@ const ProjectsSection = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default ProjectsSection;
+export default ProjectsSection
