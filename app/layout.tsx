@@ -5,6 +5,7 @@ import ScrollToTop from "@/components/scrollToTop"
 import SkipLinks from "@/components/skipLinks"
 import Header from "@/components/header"
 import Breadcrumb from "@/components/breadcrumb"
+import { Toaster } from "@/components/ui/toaster"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -57,6 +58,7 @@ export default function RootLayout({
         <Header />
         <Breadcrumb />
         <div id="main-content">{children}</div>
+        <Toaster />
       </body>
     </html>
   )
