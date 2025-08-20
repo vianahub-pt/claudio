@@ -105,7 +105,14 @@ export default function About() {
             />
 
             <div className="max-w-3xl mx-auto text-center mb-12">
-              <h3 className="text-2xl font-bold mb-4">Nossa Missão</h3>
+              <h3 className="text-2xl font-bold mb-4">
+              <p className="text-gray-900">
+                Nossa
+              </p>
+              <p className="text-blue-700">
+               Missão
+               </p>
+              </h3>
               <p className="text-lg">
                 Proporcionar soluções de excelência em serviços de eletricidade,
                 canalização e remodelação, garantindo a satisfação total dos
