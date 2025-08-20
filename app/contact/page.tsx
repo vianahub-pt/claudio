@@ -1,16 +1,9 @@
-"use client";
+"use client"
 
-import type React from "react";
-import { useState } from "react";
-import SectionTitle from "@/components/sectionTitle";
-import {
-  Mail,
-  MapPin,
-  Clock,
-  Send,
-  AlertCircle,
-  CheckCircle,
-} from "lucide-react";
+import type React from "react"
+import { useState } from "react"
+import SectionTitle from "@/components/sectionTitle"
+import { Mail, MapPin, Clock, Send, AlertCircle, CheckCircle } from "lucide-react"
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -19,75 +12,73 @@ export default function Contact() {
     phone: "",
     subject: "",
     message: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<
-    "idle" | "success" | "error"
-  >("idle");
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const phoneNumber = "351924243818"; // Sem o "+" para o WhatsApp
-  const emailAddress = "claudioantunessil@gmail.com";
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const [errors, setErrors] = useState<{ [key: string]: string }>({})
+  const [hasSubmitted, setHasSubmitted] = useState(false)
+  const phoneNumber = "351924243818" // Sem o "+" para o WhatsApp
+  const emailAddress = "claudioantunessil@gmail.com"
 
   const validateForm = () => {
-    const newErrors: { [key: string]: string } = {};
+    const newErrors: { [key: string]: string } = {}
 
     if (!formData.name.trim()) {
-      newErrors.name = "O nome é obrigatório";
+      newErrors.name = "O nome é obrigatório"
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "O email é obrigatório";
+      newErrors.email = "O email é obrigatório"
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Por favor, insira um email válido";
+      newErrors.email = "Por favor, insira um email válido"
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = "O telefone é obrigatório"
     }
 
     if (!formData.subject.trim()) {
-      newErrors.subject = "O assunto é obrigatório";
+      newErrors.subject = "O assunto é obrigatório"
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = "A mensagem é obrigatória";
+      newErrors.message = "A mensagem é obrigatória"
     }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    const { name, value } = e.target;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target
     setFormData({
       ...formData,
       [name]: value,
-    });
+    })
 
-    // Limpar erro quando o usuário começar a digitar
-    if (errors[name]) {
+    if (hasSubmitted && errors[name]) {
       setErrors({
         ...errors,
         [name]: "",
-      });
+      })
     }
-  };
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
+
+    setHasSubmitted(true)
 
     if (!validateForm()) {
-      // Focar no primeiro campo com erro
-      const firstErrorField = Object.keys(errors)[0];
-      const element = document.getElementById(firstErrorField);
-      element?.focus();
-      return;
+      const firstErrorField = Object.keys(errors)[0]
+      const element = document.getElementById(firstErrorField)
+      element?.focus()
+      return
     }
 
-    setIsSubmitting(true);
+    setIsSubmitting(true)
 
     try {
-      // Simular envio de email
       const emailBody = `
 Nome: ${formData.name}
 Email: ${formData.email}
@@ -96,28 +87,28 @@ Assunto: ${formData.subject}
 
 Mensagem:
 ${formData.message}
-      `;
+      `
 
       const mailtoLink = `mailto:${emailAddress}?subject=${encodeURIComponent(
-        formData.subject || "Contacto do Website"
-      )}&body=${encodeURIComponent(emailBody)}`;
+        formData.subject || "Contacto do Website",
+      )}&body=${encodeURIComponent(emailBody)}`
 
-      window.location.href = mailtoLink;
+      window.location.href = mailtoLink
 
-      setSubmitStatus("success");
+      setSubmitStatus("success")
       setFormData({
         name: "",
         email: "",
         phone: "",
         subject: "",
         message: "",
-      });
+      })
     } catch (error) {
-      setSubmitStatus("error");
+      setSubmitStatus("error")
     } finally {
-      setIsSubmitting(false);
+      setIsSubmitting(false)
     }
-  };
+  }
 
   return (
     <>
@@ -130,34 +121,23 @@ ${formData.message}
                 <span className="text-blue-700">Contacto</span>
               </h1>
               <p className="text-gray-900 text-xl">
-                Entre em contacto connosco para solicitar um orçamento gratuito
-                ou esclarecer qualquer dúvida.
+                Entre em contacto connosco para solicitar um orçamento gratuito ou esclarecer qualquer dúvida.
               </p>
             </div>
           </div>
         </section>
 
         {/* Informações de Contacto */}
-        <section
-          className="py-20 bg-white"
-          aria-labelledby="contact-info-heading"
-        >
+        <section className="py-20 bg-white" aria-labelledby="contact-info-heading">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               {/* Informações */}
               <div>
-                <SectionTitle
-                  title="Fale Connosco"
-                  subtitle="Estamos aqui para ajudar"
-                  level={2}
-                />
+                <SectionTitle title="Fale Connosco" subtitle="Estamos aqui para ajudar" level={2} />
 
                 <div className="space-y-6" role="list">
                   <div className="flex items-start" role="listitem">
-                    <div
-                      className="bg-blue-100 p-3 rounded-lg mr-4"
-                      aria-hidden="true"
-                    >
+                    <div className="bg-blue-100 p-3 rounded-lg mr-4" aria-hidden="true">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -183,17 +163,12 @@ ${formData.message}
                           +351 924 243 818
                         </a>
                       </p>
-                      <p className="text-sm text-gray-500">
-                        Resposta rápida via WhatsApp
-                      </p>
+                      <p className="text-sm text-gray-500">Resposta rápida via WhatsApp</p>
                     </div>
                   </div>
 
                   <div className="flex items-start" role="listitem">
-                    <div
-                      className="bg-blue-100 p-3 rounded-lg mr-4"
-                      aria-hidden="true"
-                    >
+                    <div className="bg-blue-100 p-3 rounded-lg mr-4" aria-hidden="true">
                       <Mail className="text-blue-600" size={24} />
                     </div>
                     <div>
@@ -207,17 +182,12 @@ ${formData.message}
                           {emailAddress}
                         </a>
                       </p>
-                      <p className="text-sm text-gray-500">
-                        Resposta em até 24 horas
-                      </p>
+                      <p className="text-sm text-gray-500">Resposta em até 24 horas</p>
                     </div>
                   </div>
 
                   <div className="flex items-start" role="listitem">
-                    <div
-                      className="bg-blue-100 p-3 rounded-lg mr-4"
-                      aria-hidden="true"
-                    >
+                    <div className="bg-blue-100 p-3 rounded-lg mr-4" aria-hidden="true">
                       <MapPin className="text-blue-600" size={24} />
                     </div>
                     <div>
@@ -231,16 +201,11 @@ ${formData.message}
                   </div>
 
                   <div className="flex items-start" role="listitem">
-                    <div
-                      className="bg-blue-100 p-3 rounded-lg mr-4"
-                      aria-hidden="true"
-                    >
+                    <div className="bg-blue-100 p-3 rounded-lg mr-4" aria-hidden="true">
                       <Clock className="text-blue-600" size={24} />
                     </div>
                     <div>
-                      <h3 className="text-blue-700 font-semibold text-lg mb-1">
-                        Horário de Funcionamento
-                      </h3>
+                      <h3 className="text-blue-700 font-semibold text-lg mb-1">Horário de Funcionamento</h3>
                       <div className="text-gray-600">
                         <p>Segunda a Sexta: 8h - 18h</p>
                         <p>Sábado: Fechado</p>
@@ -254,10 +219,7 @@ ${formData.message}
               {/* Formulário */}
               <div>
                 <div className="bg-gray-50 p-8 rounded-lg">
-                  <h3
-                    className="text-2xl font-bold mb-6"
-                    id="contact-form-heading"
-                  >
+                  <h3 className="text-2xl font-bold mb-6" id="contact-form-heading">
                     Envie-nos uma Mensagem
                   </h3>
 
@@ -267,15 +229,8 @@ ${formData.message}
                       role="alert"
                       aria-live="polite"
                     >
-                      <CheckCircle
-                        size={20}
-                        className="mr-2 flex-shrink-0"
-                        aria-hidden="true"
-                      />
-                      <span>
-                        Mensagem enviada com sucesso! Entraremos em contacto em
-                        breve.
-                      </span>
+                      <CheckCircle size={20} className="mr-2 flex-shrink-0" aria-hidden="true" />
+                      <span>Mensagem enviada com sucesso! Entraremos em contacto em breve.</span>
                     </div>
                   )}
 
@@ -285,29 +240,14 @@ ${formData.message}
                       role="alert"
                       aria-live="polite"
                     >
-                      <AlertCircle
-                        size={20}
-                        className="mr-2 flex-shrink-0"
-                        aria-hidden="true"
-                      />
-                      <span>
-                        Erro ao enviar mensagem. Tente novamente ou contacte-nos
-                        diretamente.
-                      </span>
+                      <AlertCircle size={20} className="mr-2 flex-shrink-0" aria-hidden="true" />
+                      <span>Erro ao enviar mensagem. Tente novamente ou contacte-nos diretamente.</span>
                     </div>
                   )}
 
-                  <form
-                    onSubmit={handleSubmit}
-                    className="space-y-6"
-                    aria-labelledby="contact-form-heading"
-                    noValidate
-                  >
+                  <form onSubmit={handleSubmit} className="space-y-6" aria-labelledby="contact-form-heading" noValidate>
                     <div>
-                      <label
-                        htmlFor="name"
-                        className="block text-sm font-medium text-gray-700 mb-2"
-                      >
+                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                         Nome{" "}
                         <span className="text-red-600" aria-label="obrigatório">
                           *
@@ -324,32 +264,19 @@ ${formData.message}
                           errors.name ? "border-red-500" : "border-gray-300"
                         }`}
                         placeholder="O seu nome"
-                        aria-describedby={
-                          errors.name ? "name-error" : undefined
-                        }
+                        aria-describedby={errors.name ? "name-error" : undefined}
                         aria-invalid={errors.name ? "true" : "false"}
                       />
                       {errors.name && (
-                        <p
-                          id="name-error"
-                          className="error-message flex items-center mt-1"
-                          role="alert"
-                        >
-                          <AlertCircle
-                            size={16}
-                            className="mr-1"
-                            aria-hidden="true"
-                          />
+                        <p id="name-error" className="error-message flex items-center mt-1" role="alert">
+                          <AlertCircle size={16} className="mr-1" aria-hidden="true" />
                           {errors.name}
                         </p>
                       )}
                     </div>
 
                     <div>
-                      <label
-                        htmlFor="email"
-                        className="block text-sm font-medium text-gray-700 mb-2"
-                      >
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                         Email{" "}
                         <span className="text-red-600" aria-label="obrigatório">
                           *
@@ -366,50 +293,48 @@ ${formData.message}
                           errors.email ? "border-red-500" : "border-gray-300"
                         }`}
                         placeholder="o.seu.email@exemplo.com"
-                        aria-describedby={
-                          errors.email ? "email-error" : undefined
-                        }
+                        aria-describedby={errors.email ? "email-error" : undefined}
                         aria-invalid={errors.email ? "true" : "false"}
                       />
                       {errors.email && (
-                        <p
-                          id="email-error"
-                          className="error-message flex items-center mt-1"
-                          role="alert"
-                        >
-                          <AlertCircle
-                            size={16}
-                            className="mr-1"
-                            aria-hidden="true"
-                          />
+                        <p id="email-error" className="error-message flex items-center mt-1" role="alert">
+                          <AlertCircle size={16} className="mr-1" aria-hidden="true" />
                           {errors.email}
                         </p>
                       )}
                     </div>
 
                     <div>
-                      <label
-                        htmlFor="phone"
-                        className="block text-sm font-medium text-gray-700 mb-2"
-                      >
-                        Telefone
+                      <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                        Telefone{" "}
+                        <span className="text-red-600" aria-label="obrigatório">
+                          *
+                        </span>
                       </label>
                       <input
                         type="tel"
                         id="phone"
                         name="phone"
+                        required
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        className={`w-full px-4 py-3 border rounded-md focus:ring-blue-500 focus:border-blue-500 ${
+                          hasSubmitted && errors.phone ? "border-red-500" : "border-gray-300"
+                        }`}
                         placeholder="+351 xxx xxx xxx"
+                        aria-describedby={hasSubmitted && errors.phone ? "phone-error" : undefined}
+                        aria-invalid={hasSubmitted && errors.phone ? "true" : "false"}
                       />
+                      {hasSubmitted && errors.phone && (
+                        <p id="phone-error" className="error-message flex items-center mt-1" role="alert">
+                          <AlertCircle size={16} className="mr-1" aria-hidden="true" />
+                          {errors.phone}
+                        </p>
+                      )}
                     </div>
 
                     <div>
-                      <label
-                        htmlFor="subject"
-                        className="block text-sm font-medium text-gray-700 mb-2"
-                      >
+                      <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
                         Assunto{" "}
                         <span className="text-red-600" aria-label="obrigatório">
                           *
@@ -424,47 +349,26 @@ ${formData.message}
                         className={`w-full px-4 py-3 border rounded-md focus:ring-blue-500 focus:border-blue-500 ${
                           errors.subject ? "border-red-500" : "border-gray-300"
                         }`}
-                        aria-describedby={
-                          errors.subject ? "subject-error" : undefined
-                        }
+                        aria-describedby={errors.subject ? "subject-error" : undefined}
                         aria-invalid={errors.subject ? "true" : "false"}
                       >
                         <option value="">Selecione um assunto</option>
-                        <option value="Orçamento - Instalação Elétrica">
-                          Orçamento - Instalação Elétrica
-                        </option>
-                        <option value="Orçamento - Canalização">
-                          Orçamento - Canalização
-                        </option>
-                        <option value="Orçamento - Casa de Banho">
-                          Orçamento - Casa de Banho
-                        </option>
-                        <option value="Informações Gerais">
-                          Informações Gerais
-                        </option>
+                        <option value="Orçamento - Instalação Elétrica">Orçamento - Instalação Elétrica</option>
+                        <option value="Orçamento - Canalização">Orçamento - Canalização</option>
+                        <option value="Orçamento - Casa de Banho">Orçamento - Casa de Banho</option>
+                        <option value="Informações Gerais">Informações Gerais</option>
                         <option value="Outro">Outro</option>
                       </select>
                       {errors.subject && (
-                        <p
-                          id="subject-error"
-                          className="error-message flex items-center mt-1"
-                          role="alert"
-                        >
-                          <AlertCircle
-                            size={16}
-                            className="mr-1"
-                            aria-hidden="true"
-                          />
+                        <p id="subject-error" className="error-message flex items-center mt-1" role="alert">
+                          <AlertCircle size={16} className="mr-1" aria-hidden="true" />
                           {errors.subject}
                         </p>
                       )}
                     </div>
 
                     <div>
-                      <label
-                        htmlFor="message"
-                        className="block text-sm font-medium text-gray-700 mb-2"
-                      >
+                      <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
                         Mensagem{" "}
                         <span className="text-red-600" aria-label="obrigatório">
                           *
@@ -481,22 +385,12 @@ ${formData.message}
                           errors.message ? "border-red-500" : "border-gray-300"
                         }`}
                         placeholder="Descreva o seu projeto ou dúvida..."
-                        aria-describedby={
-                          errors.message ? "message-error" : undefined
-                        }
+                        aria-describedby={errors.message ? "message-error" : undefined}
                         aria-invalid={errors.message ? "true" : "false"}
                       />
                       {errors.message && (
-                        <p
-                          id="message-error"
-                          className="error-message flex items-center mt-1"
-                          role="alert"
-                        >
-                          <AlertCircle
-                            size={16}
-                            className="mr-1"
-                            aria-hidden="true"
-                          />
+                        <p id="message-error" className="error-message flex items-center mt-1" role="alert">
+                          <AlertCircle size={16} className="mr-1" aria-hidden="true" />
                           {errors.message}
                         </p>
                       )}
@@ -510,10 +404,7 @@ ${formData.message}
                     >
                       {isSubmitting ? (
                         <>
-                          <span
-                            className="animate-spin mr-2"
-                            aria-hidden="true"
-                          >
+                          <span className="animate-spin mr-2" aria-hidden="true">
                             ⏳
                           </span>
                           A enviar...
@@ -526,8 +417,7 @@ ${formData.message}
                       )}
                     </button>
                     <p id="submit-button-description" className="sr-only">
-                      Clique para enviar a sua mensagem. Será redirecionado para
-                      o seu cliente de email.
+                      Clique para enviar a sua mensagem. Será redirecionado para o seu cliente de email.
                     </p>
                   </form>
                 </div>
@@ -537,17 +427,12 @@ ${formData.message}
         </section>
 
         {/* CTA */}
-        <section
-          className="py-16 bg-blue-600 text-white"
-          aria-labelledby="emergency-heading"
-        >
+        <section className="py-16 bg-blue-600 text-white" aria-labelledby="emergency-heading">
           <div className="container mx-auto px-4 text-center">
             <h2 id="emergency-heading" className="text-3xl font-bold mb-4">
               Precisa de Ajuda Urgente?
             </h2>
-            <p className="text-xl mb-8">
-              Estamos disponíveis de segunda à sextas feiras.
-            </p>
+            <p className="text-xl mb-8">Estamos disponíveis de segunda à sextas feiras.</p>
             <a
               href={`https://wa.me/${phoneNumber}`}
               className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 rounded-md font-semibold transition-colors inline-flex items-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600"
@@ -572,5 +457,5 @@ ${formData.message}
         </section>
       </main>
     </>
-  );
+  )
 }
