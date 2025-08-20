@@ -113,7 +113,7 @@ export default function About() {
                Missão
                </p>
               </h3>
-              <p className="text-lg">
+              <p className="text-gray-900 text-lg">
                 Proporcionar soluções de excelência em serviços de eletricidade,
                 canalização e remodelação, garantindo a satisfação total dos
                 nossos clientes através de um trabalho de qualidade, segurança e
