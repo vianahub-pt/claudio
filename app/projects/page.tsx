@@ -100,9 +100,9 @@ export default function Projects() {
           <div className="container mx-auto px-4">
             <div className="max-w-3xl">
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                Nossos <span className="text-blue-400">Projetos</span>
+                Nossos <span className="text-blue-700">Projetos</span>
               </h1>
-              <p className="text-xl">
+              <p className="text-gray-900 text-xl">
                 Conheça alguns dos nossos trabalhos realizados com qualidade e
                 profissionalismo em toda a região.
               </p>
