@@ -209,7 +209,7 @@ export default function Services() {
                             size={20}
                             className="text-blue-600 mr-2 flex-shrink-0"
                           />
-                          <span>{item}</span>
+                          <span className="text-blue-700">{item}</span>
                         </li>
                       ))}
                     </ul>
