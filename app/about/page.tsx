@@ -63,7 +63,7 @@ export default function About() {
                   técnicas.
                 </p>
 
-                <p className="text-blue-700 mb-4">
+                <p className="text-gray-900 mb-4">
                   Em 2010, decidiu fundar a sua própria empresa com o objetivo
                   de oferecer serviços personalizados e de alta qualidade,
                   focados nas necessidades específicas de cada cliente. Desde
