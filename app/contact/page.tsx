@@ -15,39 +15,8 @@ export default function Contact() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
-  const [errors, setErrors] = useState<{ [key: string]: string }>({})
-  const [hasSubmitted, setHasSubmitted] = useState(false)
   const phoneNumber = "351924243818" // Sem o "+" para o WhatsApp
   const emailAddress = "claudioantunessil@gmail.com"
-
-  const validateForm = () => {
-    const newErrors: { [key: string]: string } = {}
-
-    if (!formData.name.trim()) {
-      newErrors.name = "O nome é obrigatório"
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = "O email é obrigatório"
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Por favor, insira um email válido"
-    }
-
-    if (!formData.phone.trim()) {
-      newErrors.phone = "O telefone é obrigatório"
-    }
-
-    if (!formData.subject.trim()) {
-      newErrors.subject = "O assunto é obrigatório"
-    }
-
-    if (!formData.message.trim()) {
-      newErrors.message = "A mensagem é obrigatória"
-    }
-
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -55,26 +24,10 @@ export default function Contact() {
       ...formData,
       [name]: value,
     })
-
-    if (hasSubmitted && errors[name]) {
-      setErrors({
-        ...errors,
-        [name]: "",
-      })
-    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
-    setHasSubmitted(true)
-
-    if (!validateForm()) {
-      const firstErrorField = Object.keys(errors)[0]
-      const element = document.getElementById(firstErrorField)
-      element?.focus()
-      return
-    }
 
     setIsSubmitting(true)
 
@@ -96,8 +49,6 @@ ${formData.message}
       window.location.href = mailtoLink
 
       setSubmitStatus("success")
-      setHasSubmitted(false)
-      setErrors({})
       setFormData({
         name: "",
         email: "",
@@ -250,109 +201,59 @@ ${formData.message}
                   <form onSubmit={handleSubmit} className="space-y-6" aria-labelledby="contact-form-heading" noValidate>
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                        Nome{" "}
-                        <span className="text-red-600" aria-label="obrigatório">
-                          *
-                        </span>
+                        Nome
                       </label>
                       <input
                         type="text"
                         id="name"
                         name="name"
-                        required
                         value={formData.name}
                         onChange={handleChange}
-                        className={`w-full px-4 py-3 border rounded-md focus:ring-blue-500 focus:border-blue-500 ${
-                          hasSubmitted && errors.name ? "border-red-500" : "border-gray-100"
-                        }`}
+                        className="w-full px-4 py-3 border border-gray-100 rounded-md focus:ring-blue-500 focus:border-blue-500"
                         placeholder="O seu nome"
-                        aria-describedby={hasSubmitted && errors.name ? "name-error" : undefined}
-                        aria-invalid={hasSubmitted && errors.name ? "true" : "false"}
                       />
-                      {hasSubmitted && errors.name && (
-                        <p id="name-error" className="error-message flex items-center mt-1" role="alert">
-                          <AlertCircle size={16} className="mr-1" aria-hidden="true" />
-                          {errors.name}
-                        </p>
-                      )}
                     </div>
 
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                        Email{" "}
-                        <span className="text-red-600" aria-label="obrigatório">
-                          *
-                        </span>
+                        Email
                       </label>
                       <input
                         type="email"
                         id="email"
                         name="email"
-                        required
                         value={formData.email}
                         onChange={handleChange}
-                        className={`w-full px-4 py-3 border rounded-md focus:ring-blue-500 focus:border-blue-500 ${
-                          hasSubmitted && errors.email ? "border-red-500" : "border-gray-100"
-                        }`}
+                        className="w-full px-4 py-3 border border-gray-100 rounded-md focus:ring-blue-500 focus:border-blue-500"
                         placeholder="o.seu.email@exemplo.com"
-                        aria-describedby={hasSubmitted && errors.email ? "email-error" : undefined}
-                        aria-invalid={hasSubmitted && errors.email ? "true" : "false"}
                       />
-                      {hasSubmitted && errors.email && (
-                        <p id="email-error" className="error-message flex items-center mt-1" role="alert">
-                          <AlertCircle size={16} className="mr-1" aria-hidden="true" />
-                          {errors.email}
-                        </p>
-                      )}
                     </div>
 
                     <div>
                       <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                        Telefone{" "}
-                        <span className="text-red-600" aria-label="obrigatório">
-                          *
-                        </span>
+                        Telefone
                       </label>
                       <input
                         type="tel"
                         id="phone"
                         name="phone"
-                        required
                         value={formData.phone}
                         onChange={handleChange}
-                        className={`w-full px-4 py-3 border rounded-md focus:ring-blue-500 focus:border-blue-500 ${
-                          hasSubmitted && errors.phone ? "border-red-500" : "border-gray-100"
-                        }`}
+                        className="w-full px-4 py-3 border border-gray-100 rounded-md focus:ring-blue-500 focus:border-blue-500"
                         placeholder="+351 xxx xxx xxx"
-                        aria-describedby={hasSubmitted && errors.phone ? "phone-error" : undefined}
-                        aria-invalid={hasSubmitted && errors.phone ? "true" : "false"}
                       />
-                      {hasSubmitted && errors.phone && (
-                        <p id="phone-error" className="error-message flex items-center mt-1" role="alert">
-                          <AlertCircle size={16} className="mr-1" aria-hidden="true" />
-                          {errors.phone}
-                        </p>
-                      )}
                     </div>
 
                     <div>
                       <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-                        Assunto{" "}
-                        <span className="text-red-600" aria-label="obrigatório">
-                          *
-                        </span>
+                        Assunto
                       </label>
                       <select
                         id="subject"
                         name="subject"
-                        required
                         value={formData.subject}
                         onChange={handleChange}
-                        className={`w-full px-4 py-3 border rounded-md focus:ring-blue-500 focus:border-blue-500 ${
-                          hasSubmitted && errors.subject ? "border-red-500" : "border-gray-100"
-                        }`}
-                        aria-describedby={hasSubmitted && errors.subject ? "subject-error" : undefined}
-                        aria-invalid={hasSubmitted && errors.subject ? "true" : "false"}
+                        className="w-full px-4 py-3 border border-gray-100 rounded-md focus:ring-blue-500 focus:border-blue-500"
                       >
                         <option value="">Selecione um assunto</option>
                         <option value="Orçamento - Instalação Elétrica">Orçamento - Instalação Elétrica</option>
@@ -361,41 +262,21 @@ ${formData.message}
                         <option value="Informações Gerais">Informações Gerais</option>
                         <option value="Outro">Outro</option>
                       </select>
-                      {hasSubmitted && errors.subject && (
-                        <p id="subject-error" className="error-message flex items-center mt-1" role="alert">
-                          <AlertCircle size={16} className="mr-1" aria-hidden="true" />
-                          {errors.subject}
-                        </p>
-                      )}
                     </div>
 
                     <div>
                       <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                        Mensagem{" "}
-                        <span className="text-red-600" aria-label="obrigatório">
-                          *
-                        </span>
+                        Mensagem
                       </label>
                       <textarea
                         id="message"
                         name="message"
-                        required
                         rows={5}
                         value={formData.message}
                         onChange={handleChange}
-                        className={`w-full px-4 py-3 border rounded-md focus:ring-blue-500 focus:border-blue-500 ${
-                          hasSubmitted && errors.message ? "border-red-500" : "border-gray-100"
-                        }`}
+                        className="w-full px-4 py-3 border border-gray-100 rounded-md focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Descreva o seu projeto ou dúvida..."
-                        aria-describedby={hasSubmitted && errors.message ? "message-error" : undefined}
-                        aria-invalid={hasSubmitted && errors.message ? "true" : "false"}
                       />
-                      {hasSubmitted && errors.message && (
-                        <p id="message-error" className="error-message flex items-center mt-1" role="alert">
-                          <AlertCircle size={16} className="mr-1" aria-hidden="true" />
-                          {errors.message}
-                        </p>
-                      )}
                     </div>
 
                     <button
