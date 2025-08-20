@@ -46,7 +46,7 @@ const AboutSection = () => {
               subtitle="Conheça a Claudio Eletricista e Picheleiro"
             />
 
-            <p className="mb-6">
+            <p className="text-gray-900 mb-6">
               Somos uma empresa especializada em serviços de eletricidade,
               canalização e remodelação, atendendo clientes residenciais e
               comerciais. Com mais de 15 anos de experiência no mercado,
@@ -54,7 +54,7 @@ const AboutSection = () => {
               cada projeto.
             </p>
 
-            <p className="mb-8">
+            <p className=" text-gray-900 mb-8">
               Nossa equipa é formada por profissionais qualificados e
               comprometidos em oferecer as melhores soluções para as
               necessidades dos nossos clientes, sempre com preços justos e
