@@ -197,7 +197,7 @@ export default function Services() {
                     <h2 className="text-blue-700 text-3xl font-bold mb-4">
                       {activeService.title}
                     </h2>
-                    <p className="text-lg mb-6">{activeService.description}</p>
+                    <p className="text-gray-900 text-lg mb-6">{activeService.description}</p>
 
                     <h3 className="text-xl font-semibold mb-4">
                       O que incluímos:
