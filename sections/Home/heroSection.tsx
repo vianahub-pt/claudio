@@ -27,7 +27,8 @@ const HeroSection = () => {
             <div className="flex justify-center sm:justify-start">
               <Link
                 href={`https://wa.me/${phoneNumber}`}
-                className="bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 px-8 rounded-md transition-all text-center flex items-center justify-center shadow-md"
+                className="!bg-blue-700 hover:!bg-blue-800 !text-white font-semibold py-3 px-8 rounded-md transition-all text-center flex items-center justify-center shadow-md"
+                style={{ backgroundColor: "#1d4ed8", color: "#ffffff" }}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Solicitar Orçamento via WhatsApp: +351 924 243 818"
