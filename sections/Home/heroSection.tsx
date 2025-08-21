@@ -5,7 +5,7 @@ const HeroSection = () => {
   const phoneNumber = "351924243818"
 
   return (
-    <section className="relative text-gray-800" style={{ backgroundColor: "#C8E8FF" }}>
+    <section className="relative text-gray-800 bg-sky-100">
       <div className="absolute inset-0 z-0 opacity-10">
         <div className="w-full h-full bg-gradient-to-r from-blue-600/20 to-blue-800/20"></div>
       </div>

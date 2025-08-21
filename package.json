@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "clean": "rm -rf .next",
+    "clean": "rm -rf .next out",
     "dev": "next dev",
+    "export": "next build && next export",
     "lint": "next lint",
     "start": "next start"
   },
@@ -34,7 +35,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-tabs": "^1.0.4",
-    "@radix-ui/react-toast": "^1.1.5",
+    "@radix-ui/react-toast": "latest",
     "@radix-ui/react-toggle": "^1.0.3",
     "@radix-ui/react-toggle-group": "^1.0.4",
     "@radix-ui/react-tooltip": "^1.0.7",
