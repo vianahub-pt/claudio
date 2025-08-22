@@ -106,23 +106,19 @@ export default function ContactoSection() {
   }
 
   return (
-        {/* Banner */}
-        <section className="hero-section text-white py-20">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                Entre em <span className="text-blue-700">Contacto</span>
-              </h1>
-              <p className="text-gray-900 text-xl">
-            Tem alguma dúvida ou quer saber mais sobre os nossos serviços? Entre em contacto connosco e responderemos o
-            mais rapidamente possível.
-              </p>
-            </div>
-          </div>
-        </section>
-          
     <section id="contacto" className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+              Entre em <span className="text-blue-700">Contacto</span>
+            </h1>
+            <p className="text-gray-900 text-xl">
+          Tem alguma dúvida ou quer saber mais sobre os nossos serviços? Entre em contacto connosco e responderemos o
+          mais rapidamente possível.
+            </p>
+          </div>
+        </div>
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {/* Informações de Contacto */}
           <div className="space-y-6">
