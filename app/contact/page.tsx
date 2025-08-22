@@ -59,7 +59,7 @@ export default function ContactoSection() {
       formDataToSend.append("to", "vianahub@vianahub.pt")
       formDataToSend.append("subject", `Novo contato do site - ${formData.name}`)
       formDataToSend.append("body", `Nova mensagem recebida através do formulário de contacto do site.`)
-      formDataToSend.append("templateCode", "PromoContact")
+      formDataToSend.append("templateCode", "ClaudioEletricistaContact")
 
       // Metadata
       formDataToSend.append("metadata[0].Name", formData.name)
