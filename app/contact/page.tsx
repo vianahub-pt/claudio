@@ -126,14 +126,6 @@ export default function ContactoSection() {
 
         <section id="contacto" className="py-16 bg-gray-50">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Entre em Contacto</h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Tem alguma dúvida ou quer saber mais sobre os nossos serviços? Entre em contacto connosco e
-                responderemos o mais rapidamente possível.
-              </p>
-            </div>
-
             <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
               {/* Informações de Contacto */}
               <div className="space-y-6">
