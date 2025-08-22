@@ -106,8 +106,10 @@ export default function ContactoSection() {
   }
 
   return (
-    <section id="contacto" className="py-16 bg-gray-50">
-      <div className="container mx-auto px-4">
+  <>
+    <main>
+      {/* Banner */}
+      <section className="hero-section text-white py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
@@ -119,138 +121,155 @@ export default function ContactoSection() {
             </p>
           </div>
         </div>
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {/* Informações de Contacto */}
-          <div className="space-y-6">
+      </section>
+          
+      <section id="contacto" className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Entre em Contacto</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Tem alguma dúvida ou quer saber mais sobre os nossos serviços? Entre em contacto connosco e responderemos o
+              mais rapidamente possível.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {/* Informações de Contacto */}
+            <div className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">Informações de Contacto</CardTitle>
+                  <CardDescription>Entre em contacto através dos seguintes meios</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <Mail className="h-5 w-5 text-orange-500" />
+                    <div>
+                      <p className="font-medium">Email</p>
+                      <p className="text-gray-600">claudioantunessil@gmail.com</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Phone className="h-5 w-5 text-orange-500" />
+                    <div>
+                      <p className="font-medium">Telefone</p>
+                      <p className="text-gray-600">+351 924 243 818</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <MapPin className="h-5 w-5 text-orange-500" />
+                    <div>
+                      <p className="font-medium">Morada</p>
+                      <p className="text-gray-600">Av. António José de Almeida 70 3720-239 Oliveira de Azeméis</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Clock className="h-5 w-5 text-orange-500" />
+                    <div>
+                      <p className="font-medium">Horário</p>
+                      <p className="text-gray-600">Segunda a Sexta: 9h às 18h</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Formulário de Contacto */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">Informações de Contacto</CardTitle>
-                <CardDescription>Entre em contacto através dos seguintes meios</CardDescription>
+                <CardTitle>Envie-nos uma Mensagem</CardTitle>
+                <CardDescription>Preencha o formulário abaixo e entraremos em contacto consigo</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <Mail className="h-5 w-5 text-orange-500" />
-                  <div>
-                    <p className="font-medium">Email</p>
-                    <p className="text-gray-600">claudioantunessil@gmail.com</p>
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Nome *</Label>
+                      <Input
+                        id="name"
+                        name="name"
+                        type="text"
+                        placeholder="O seu nome"
+                        required
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        disabled={isSubmitting}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email *</Label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="o.seu.email@exemplo.com"
+                        required
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        disabled={isSubmitting}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Phone className="h-5 w-5 text-orange-500" />
-                  <div>
-                    <p className="font-medium">Telefone</p>
-                    <p className="text-gray-600">+351 924 243 818</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="phone">Telefone</Label>
+                      <Input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        placeholder="+351 xxx xxx xxx"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        disabled={isSubmitting}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="company">Empresa</Label>
+                      <Input
+                        id="company"
+                        name="company"
+                        type="text"
+                        placeholder="Nome da empresa"
+                        value={formData.company}
+                        onChange={handleInputChange}
+                        disabled={isSubmitting}
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <MapPin className="h-5 w-5 text-orange-500" />
-                  <div>
-                    <p className="font-medium">Morada</p>
-                    <p className="text-gray-600">Av. António José de Almeida 70 3720-239 Oliveira de Azeméis</p>
+                  <div className="space-y-2">
+                    <Label htmlFor="message">Mensagem *</Label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      placeholder="Descreva o seu projeto ou dúvida..."
+                      className="min-h-[120px]"
+                      required
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      disabled={isSubmitting}
+                    />
                   </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Clock className="h-5 w-5 text-orange-500" />
-                  <div>
-                    <p className="font-medium">Horário</p>
-                    <p className="text-gray-600">Segunda a Sexta: 9h às 18h</p>
-                  </div>
-                </div>
+
+                  <Button type="submit" className="w-full bg-orange-500 hover:bg-orange-600" disabled={isSubmitting}>
+                    {isSubmitting ? (
+                      <>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                        Enviando...
+                      </>
+                    ) : (
+                      "Enviar Mensagem"
+                    )}
+                  </Button>
+                </form>
               </CardContent>
             </Card>
           </div>
-
-          {/* Formulário de Contacto */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Envie-nos uma Mensagem</CardTitle>
-              <CardDescription>Preencha o formulário abaixo e entraremos em contacto consigo</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Nome *</Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      type="text"
-                      placeholder="O seu nome"
-                      required
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      disabled={isSubmitting}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email *</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="o.seu.email@exemplo.com"
-                      required
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      disabled={isSubmitting}
-                    />
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">Telefone</Label>
-                    <Input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      placeholder="+351 xxx xxx xxx"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      disabled={isSubmitting}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="company">Empresa</Label>
-                    <Input
-                      id="company"
-                      name="company"
-                      type="text"
-                      placeholder="Nome da empresa"
-                      value={formData.company}
-                      onChange={handleInputChange}
-                      disabled={isSubmitting}
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="message">Mensagem *</Label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    placeholder="Descreva o seu projeto ou dúvida..."
-                    className="min-h-[120px]"
-                    required
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    disabled={isSubmitting}
-                  />
-                </div>
-
-                <Button type="submit" className="w-full bg-orange-500 hover:bg-orange-600" disabled={isSubmitting}>
-                  {isSubmitting ? (
-                    <>
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                      Enviando...
-                    </>
-                  ) : (
-                    "Enviar Mensagem"
-                  )}
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
         </div>
-      </div>
-    </section>
+      </section>
+    <main>
+
+    <Footer />
+  <>
   )
 }
