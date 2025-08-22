@@ -129,21 +129,21 @@ export default function ContactoSection() {
                   <Mail className="h-5 w-5 text-orange-500" />
                   <div>
                     <p className="font-medium">Email</p>
-                    <p className="text-gray-600">vianahub@vianahub.pt</p>
+                    <p className="text-gray-600">claudioantunessil@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone className="h-5 w-5 text-orange-500" />
                   <div>
                     <p className="font-medium">Telefone</p>
-                    <p className="text-gray-600">+351 214 744 028</p>
+                    <p className="text-gray-600">+351 924 243 818</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <MapPin className="h-5 w-5 text-orange-500" />
                   <div>
                     <p className="font-medium">Morada</p>
-                    <p className="text-gray-600">Torres Vedras, Portugal</p>
+                    <p className="text-gray-600">Av. António José de Almeida 70 3720-239 Oliveira de Azeméis</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
