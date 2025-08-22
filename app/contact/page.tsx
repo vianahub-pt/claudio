@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+import Footer from "@/components/footer"
 import { useState } from "react"
 import SectionTitle from "@/components/sectionTitle"
 import { Mail, MapPin, Clock, Send } from "lucide-react"
@@ -311,6 +312,8 @@ export default function Contact() {
           </div>
         </section>
       </main>
+
+      <Footer />      
     </>
   )
 }
