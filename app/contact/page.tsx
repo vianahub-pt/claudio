@@ -1,28 +1,28 @@
 "use client"
 
 import type React from "react"
-import Footer from "@/components/footer"
+
 import { useState } from "react"
-import SectionTitle from "@/components/sectionTitle"
-import { Mail, MapPin, Clock, Send } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Mail, Phone, MapPin, Clock } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 
-export default function Contact() {
-  const phoneNumber = "351924243818"
-  const emailAddress = "claudioantunessil@gmail.com"
-  const { toast } = useToast()
-
+export default function ContactoSection() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     company: "",
-    subject: "",
     message: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const { toast } = useToast()
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({
       ...prev,
@@ -30,71 +30,75 @@ export default function Contact() {
     }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const generateCorrelationId = () => {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+      const r = (Math.random() * 16) | 0
+      const v = c == "x" ? r : (r & 0x3) | 0x8
+      return v.toString(16)
+    })
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
-    if (!formData.name || !formData.email || !formData.phone || !formData.subject || !formData.message) {
-      toast({
-        title: "Erro de validação",
-        description: "Por favor, preencha todos os campos obrigatórios.",
-        variant: "destructive",
-      })
-      return
-    }
-
     setIsSubmitting(true)
 
     try {
+      // Criar FormData para multipart/form-data
       const formDataToSend = new FormData()
-      const correlationId = crypto.randomUUID()
 
+      // Headers serão enviados como headers HTTP
+      const headers = {
+        "x-user": "Portal Promo",
+        "x-channel": "Portal Promo",
+        "x-correlationid": generateCorrelationId(),
+      }
+
+      // Dados do formulário
       formDataToSend.append("from", "vianahub@vianahub.pt")
       formDataToSend.append("to", "vianahub@vianahub.pt")
+      formDataToSend.append("cc", "contato@outlook.com")
       formDataToSend.append("subject", `Novo contato do site - ${formData.name}`)
-      formDataToSend.append("body", "Nova mensagem recebida através do formulário")
-      formDataToSend.append("templateCode", "ClaudioEletricistaContact")
+      formDataToSend.append("body", `Nova mensagem recebida através do formulário de contacto do site.`)
+      formDataToSend.append("templateCode", "PromoContact")
+
+      // Metadata
       formDataToSend.append("metadata[0].Name", formData.name)
       formDataToSend.append("metadata[0].Email", formData.email)
-      formDataToSend.append("metadata[0].Phone", formData.phone)
-      formDataToSend.append("metadata[0].Company", formData.company || "Não informado")
+      formDataToSend.append("metadata[0].Phone", formData.phone || "")
+      formDataToSend.append("metadata[0].Company", formData.company || "")
       formDataToSend.append("metadata[0].Message", formData.message)
 
       const response = await fetch("https://www.mail.vianahub.pt/contacts/send-mail", {
         method: "POST",
-        headers: {
-          "x-user": "Portal Promo",
-          "x-channel": "Portal Promo",
-          "x-correlationid": correlationId,
-        },
+        headers: headers,
         body: formDataToSend,
       })
 
       if (response.ok) {
         toast({
-          title: "Mensagem enviada!",
-          description: "Mensagem enviada com sucesso! Entraremos em contacto em breve.",
+          title: "Mensagem enviada com sucesso!",
+          description: "Obrigado pelo seu contacto. Responderemos em breve.",
+          duration: 5000,
         })
 
+        // Reset form
         setFormData({
           name: "",
           email: "",
           phone: "",
           company: "",
-          subject: "",
           message: "",
         })
       } else {
-        toast({
-          title: "Erro no envio",
-          description: "Erro ao enviar mensagem. Tente novamente ou contacte-nos diretamente.",
-          variant: "destructive",
-        })
+        throw new Error("Erro no envio")
       }
     } catch (error) {
+      console.error("Erro ao enviar mensagem:", error)
       toast({
-        title: "Erro no envio",
-        description: "Erro ao enviar mensagem. Tente novamente ou contacte-nos diretamente.",
+        title: "Erro ao enviar mensagem",
+        description: "Ocorreu um erro ao enviar a sua mensagem. Tente novamente ou contacte-nos diretamente.",
         variant: "destructive",
+        duration: 5000,
       })
     } finally {
       setIsSubmitting(false)
@@ -102,246 +106,148 @@ export default function Contact() {
   }
 
   return (
-    <>
-      <main id="main-content">
-        <section className="hero-section text-white py-20" role="banner">
-          <div className="container mx-auto px-4">
-            <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                <span className="text-blue-700">Contacto</span>
-              </h1>
-              <p className="text-gray-900 text-xl">
-                Entre em contacto connosco para solicitar um orçamento gratuito ou esclarecer qualquer dúvida.
-              </p>
-            </div>
-          </div>
-        </section>
+    <section id="contacto" className="py-16 bg-gray-50">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Entre em Contacto</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Tem alguma dúvida ou quer saber mais sobre os nossos serviços? Entre em contacto connosco e responderemos o
+            mais rapidamente possível.
+          </p>
+        </div>
 
-        <section className="py-20 bg-white" aria-labelledby="contact-info-heading">
-          <div className="container mx-auto px-4">
-            <SectionTitle title="Fale Connosco" subtitle="Estamos aqui para ajudar" level={2} />
-
-            <div className="max-w-2xl mx-auto mb-16">
-              <div className="bg-gray-50 p-8 rounded-lg">
-                <h3 className="text-2xl font-bold mb-6 text-center">Envie-nos uma Mensagem</h3>
-
-                <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          {/* Informações de Contacto */}
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">Informações de Contacto</CardTitle>
+                <CardDescription>Entre em contacto através dos seguintes meios</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <Mail className="h-5 w-5 text-orange-500" />
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                      Nome *
-                    </label>
-                    <input
-                      type="text"
+                    <p className="font-medium">Email</p>
+                    <p className="text-gray-600">vianahub@vianahub.pt</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Phone className="h-5 w-5 text-orange-500" />
+                  <div>
+                    <p className="font-medium">Telefone</p>
+                    <p className="text-gray-600">+351 214 744 028</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <MapPin className="h-5 w-5 text-orange-500" />
+                  <div>
+                    <p className="font-medium">Morada</p>
+                    <p className="text-gray-600">Torres Vedras, Portugal</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Clock className="h-5 w-5 text-orange-500" />
+                  <div>
+                    <p className="font-medium">Horário</p>
+                    <p className="text-gray-600">Segunda a Sexta: 9h às 18h</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Formulário de Contacto */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Envie-nos uma Mensagem</CardTitle>
+              <CardDescription>Preencha o formulário abaixo e entraremos em contacto consigo</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Nome *</Label>
+                    <Input
                       id="name"
                       name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
+                      type="text"
                       placeholder="O seu nome"
+                      required
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      disabled={isSubmitting}
                     />
                   </div>
-
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                      Email *
-                    </label>
-                    <input
-                      type="email"
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email *</Label>
+                    <Input
                       id="email"
                       name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
+                      type="email"
                       placeholder="o.seu.email@exemplo.com"
+                      required
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      disabled={isSubmitting}
                     />
                   </div>
-
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                      Telefone *
-                    </label>
-                    <input
-                      type="tel"
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="phone">Telefone</Label>
+                    <Input
                       id="phone"
                       name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
+                      type="tel"
                       placeholder="+351 xxx xxx xxx"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      disabled={isSubmitting}
                     />
                   </div>
-
-                  <div>
-                    <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
-                      Empresa
-                    </label>
-                    <input
-                      type="text"
+                  <div className="space-y-2">
+                    <Label htmlFor="company">Empresa</Label>
+                    <Input
                       id="company"
                       name="company"
-                      value={formData.company}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
-                      placeholder="Nome da sua empresa (opcional)"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-                      Assunto *
-                    </label>
-                    <input
                       type="text"
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
-                      placeholder="Assunto da sua mensagem"
+                      placeholder="Nome da empresa"
+                      value={formData.company}
+                      onChange={handleInputChange}
+                      disabled={isSubmitting}
                     />
                   </div>
-
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                      Mensagem *
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
-                      rows={5}
-                      className="w-full px-4 py-3 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-vertical text-gray-900"
-                      placeholder="Descreva o seu projeto ou dúvida..."
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="message">Mensagem *</Label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    placeholder="Descreva o seu projeto ou dúvida..."
+                    className="min-h-[120px]"
+                    required
+                    value={formData.message}
+                    onChange={handleInputChange}
                     disabled={isSubmitting}
-                    className={`w-full px-8 py-3 rounded-md font-semibold transition-colors inline-flex items-center justify-center text-white ${
-                      isSubmitting ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
-                    }`}
-                  >
-                    <Send size={20} className="mr-2" />
-                    {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
-                  </button>
-                </form>
-              </div>
-            </div>
-
-            <div className="max-w-6xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div className="text-center">
-                  <div className="bg-blue-100 p-4 rounded-lg mb-4 inline-block">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="32"
-                      height="32"
-                      viewBox="0 0 24 24"
-                      fill="#2563eb"
-                      className="flex-shrink-0"
-                      aria-hidden="true"
-                    >
-                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-blue-700 font-semibold text-lg mb-2">WhatsApp</h3>
-                  <p className="text-gray-600 mb-2">
-                    <a
-                      href={`https://wa.me/${phoneNumber}`}
-                      className="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
-                      aria-label="Contactar via WhatsApp: +351 924 243 818"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      +351 924 243 818
-                    </a>
-                  </p>
-                  <p className="text-sm text-gray-500">Resposta rápida via WhatsApp</p>
+                  />
                 </div>
 
-                <div className="text-center">
-                  <div className="bg-blue-100 p-4 rounded-lg mb-4 inline-block">
-                    <Mail className="text-blue-600" size={32} />
-                  </div>
-                  <h3 className="text-blue-700 font-semibold text-lg mb-2">Email</h3>
-                  <p className="text-gray-600 mb-2">
-                    <a
-                      href={`mailto:${emailAddress}`}
-                      className="hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
-                      aria-label="Enviar email para claudioantunessil@gmail.com"
-                    >
-                      {emailAddress}
-                    </a>
-                  </p>
-                  <p className="text-sm text-gray-500">Resposta em até 24 horas</p>
-                </div>
-
-                <div className="text-center">
-                  <div className="bg-blue-100 p-4 rounded-lg mb-4 inline-block">
-                    <MapPin className="text-blue-600" size={32} />
-                  </div>
-                  <h3 className="text-blue-700 font-semibold text-lg mb-2">Morada</h3>
-                  <address className="text-gray-600 not-italic">
-                    Av. António José de Almeida 70
-                    <br />
-                    3720-239 Oliveira de Azeméis
-                  </address>
-                </div>
-
-                <div className="text-center">
-                  <div className="bg-blue-100 p-4 rounded-lg mb-4 inline-block">
-                    <Clock className="text-blue-600" size={32} />
-                  </div>
-                  <h3 className="text-blue-700 font-semibold text-lg mb-2">Horário de Funcionamento</h3>
-                  <div className="text-gray-600">
-                    <p>Segunda a Sexta: 8h - 18h</p>
-                    <p>Sábado: Fechado</p>
-                    <p>Domingo: Atendimento de emergência</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="py-16 bg-blue-600 text-white" aria-labelledby="emergency-heading">
-          <div className="container mx-auto px-4 text-center">
-            <h2 id="emergency-heading" className="text-3xl font-bold mb-4">
-              Precisa de Ajuda Urgente?
-            </h2>
-            <p className="text-xl mb-8">Estamos disponíveis de segunda às sextas feiras.</p>
-            <a
-              href={`https://wa.me/${phoneNumber}`}
-              className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 rounded-md font-semibold transition-colors inline-flex items-center focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600"
-              aria-label="Contactar via WhatsApp: +351 924 243 818"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="mr-2"
-                aria-hidden="true"
-              >
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-              </svg>
-              WhatsApp: +351 924 243 818
-            </a>
-          </div>
-        </section>
-      </main>
-
-      <Footer />
-    </>
+                <Button type="submit" className="w-full bg-orange-500 hover:bg-orange-600" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Enviando...
+                    </>
+                  ) : (
+                    "Enviar Mensagem"
+                  )}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </section>
   )
 }
