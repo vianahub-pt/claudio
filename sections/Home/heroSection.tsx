@@ -16,6 +16,10 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 py-20 md:py-32 relative z-10">
         <div className="flex flex-col items-center justify-center text-center">
           <div className="max-w-3xl">
+            <div className="inline-flex items-center bg-blue-600/20 backdrop-blur-sm border border-blue-400/30 rounded-full px-6 py-2 mb-6">
+              <span className="text-blue-200 font-semibold text-lg">+15 Anos de Experiência</span>
+            </div>
+
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white drop-shadow-lg">
               Claudio <br />
               <span className="text-blue-300">Eletricista e</span>
@@ -27,15 +31,22 @@ const HeroSection = () => {
               Soluções profissionais para instalações elétricas, canalização e remodelação.
             </p>
 
-            <div className="flex justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href={`https://wa.me/${phoneNumber}`}
-                className="bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 px-8 rounded-md transition-all text-center flex items-center justify-center shadow-lg"
+                className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Solicitar Orçamento via WhatsApp: +351 924 243 818"
               >
                 Solicitar Orçamento
+              </Link>
+
+              <Link
+                href="/projects"
+                className="inline-flex items-center justify-center bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 border border-white/20 hover:border-white/40"
+              >
+                Ver Projetos
               </Link>
             </div>
           </div>
