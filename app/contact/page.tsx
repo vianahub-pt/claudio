@@ -50,10 +50,9 @@ export default function Contact() {
 
       formDataToSend.append("from", "vianahub@vianahub.pt")
       formDataToSend.append("to", "vianahub@vianahub.pt")
-      formDataToSend.append("cc", "contato@outlook.com")
       formDataToSend.append("subject", `Novo contato do site - ${formData.name}`)
       formDataToSend.append("body", "Nova mensagem recebida através do formulário")
-      formDataToSend.append("templateCode", "PromoContact")
+      formDataToSend.append("templateCode", "ClaudioEletricistaContact")
       formDataToSend.append("metadata[0].Name", formData.name)
       formDataToSend.append("metadata[0].Email", formData.email)
       formDataToSend.append("metadata[0].Phone", formData.phone)
