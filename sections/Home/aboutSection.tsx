@@ -27,7 +27,7 @@ const AboutSection = () => {
               />
             </div>
             <div
-              className="absolute -bottom-6 -right-6 !bg-blue-600 !text-white p-4 rounded-lg shadow-lg hidden md:block"
+              className="absolute -bottom-6 -right-6 !bg-blue-600 !text-white p-4 rounded-lg shadow-lg"
               style={{ backgroundColor: "#2563eb", color: "#ffffff" }}
             >
               <p className="font-bold text-xl">+15</p>

@@ -1,6 +1,6 @@
-import Link from "next/link";
-import SectionTitle from "@/components/sectionTitle";
-import { Zap, Droplet, Wrench, Home, Building, ShowerHead } from "lucide-react";
+import Link from "next/link"
+import SectionTitle from "@/components/sectionTitle"
+import { Zap, Droplet, Wrench, Home, Building, ShowerHead } from "lucide-react"
 
 const ServicesSection = () => {
   const services = [
@@ -14,15 +14,13 @@ const ServicesSection = () => {
     {
       icon: <Droplet size={40} className="text-blue-600" />,
       title: "Canalizações",
-      description:
-        "Instalação e reparação de sistemas de canalização, torneiras, autoclismos e desentupimentos.",
+      description: "Instalação e reparação de sistemas de canalização, torneiras, autoclismos e desentupimentos.",
       link: "/services#plumbing",
     },
     {
       icon: <ShowerHead size={40} className="text-blue-600" />,
       title: "Casas de Banho",
-      description:
-        "Renovação completa de casas de banho, instalação de sanitários, chuveiros e banheiras.",
+      description: "Renovação completa de casas de banho, instalação de sanitários, chuveiros e banheiras.",
       link: "/services#bathroom",
     },
     {
@@ -35,27 +33,21 @@ const ServicesSection = () => {
     {
       icon: <Home size={40} className="text-blue-600" />,
       title: "Projetos Residenciais",
-      description:
-        "Soluções completas para projetos elétricos e hidráulicos em novas construções ou renovações.",
+      description: "Soluções completas para projetos elétricos e hidráulicos em novas construções ou renovações.",
       link: "/services#residential",
     },
     {
       icon: <Building size={40} className="text-blue-600" />,
       title: "Projetos Comerciais",
-      description:
-        "Serviços especializados para empresas, lojas e escritórios, com foco em eficiência e segurança.",
+      description: "Serviços especializados para empresas, lojas e escritórios, com foco em eficiência e segurança.",
       link: "/services#commercial",
     },
-  ];
+  ]
 
   return (
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
-        <SectionTitle
-          title="Nossos Serviços"
-          subtitle="Soluções completas para suas necessidades"
-          center
-        />
+        <SectionTitle title="Nossos Serviços" subtitle="Soluções completas para suas necessidades" center />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
@@ -78,12 +70,7 @@ const ServicesSection = () => {
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </Link>
             </div>
@@ -93,14 +80,14 @@ const ServicesSection = () => {
         <div className="text-center mt-12">
           <Link
             href="/services"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-semibold transition-colors"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
           >
             Ver Todos os Serviços
           </Link>
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default ServicesSection;
+export default ServicesSection
