@@ -1,18 +1,11 @@
-import Link from "next/link";
-import Image from "next/image";
-import {
-  Mail,
-  MapPin,
-  Facebook,
-  Instagram,
-  Clock,
-  ExternalLink,
-} from "lucide-react";
+import Link from "next/link"
+import Image from "next/image"
+import { Mail, MapPin, Facebook, Instagram, Clock } from "lucide-react"
 
 const footer = () => {
-  const currentYear = new Date().getFullYear();
-  const phoneNumber = "351924243818"; // Sem o "+" para o WhatsApp
-  const emailAddress = "claudioantunessil@gmail.com";
+  const currentYear = 2024
+  const phoneNumber = "351924243818" // Sem o "+" para o WhatsApp
+  const emailAddress = "claudioantunessil@gmail.com"
 
   return (
     <footer className="text-gray-800" style={{ backgroundColor: "#C8E8FF" }}>
@@ -34,16 +27,13 @@ const footer = () => {
               />
             </Link>
             <p className="text-sm mb-4 text-gray-700">
-              Serviços profissionais de eletricista, canalização e remodelação.
-              Qualidade e confiança em cada trabalho.
+              Serviços profissionais de eletricista, canalização e remodelação. Qualidade e confiança em cada trabalho.
             </p>
           </div>
 
           {/* Links Rápidos */}
           <div>
-            <h3 className="text-xl font-semibold mb-4 text-gray-900">
-              Links Rápidos
-            </h3>
+            <h3 className="text-xl font-semibold mb-4 text-gray-900">Links Rápidos</h3>
             <ul className="space-y-2">
               <li>
                 <Link
@@ -90,32 +80,18 @@ const footer = () => {
 
           {/* Horário de Funcionamento */}
           <div>
-            <h3 className="text-xl font-semibold mb-4 text-gray-900">
-              Horário
-            </h3>
+            <h3 className="text-xl font-semibold mb-4 text-gray-900">Horário</h3>
             <ul className="space-y-2">
               <li className="flex items-center text-gray-700">
-                <Clock
-                  size={18}
-                  className="mr-2 text-blue-700 flex-shrink-0"
-                  aria-hidden="true"
-                />
+                <Clock size={18} className="mr-2 text-blue-700 flex-shrink-0" aria-hidden="true" />
                 <span>Segunda a Sexta: 8h - 18h</span>
               </li>
               <li className="flex items-center text-gray-700">
-                <Clock
-                  size={18}
-                  className="mr-2 text-blue-700 flex-shrink-0"
-                  aria-hidden="true"
-                />
+                <Clock size={18} className="mr-2 text-blue-700 flex-shrink-0" aria-hidden="true" />
                 <span>Sábado: Fechado</span>
               </li>
               <li className="flex items-center text-gray-700">
-                <Clock
-                  size={18}
-                  className="mr-2 text-blue-700 flex-shrink-0"
-                  aria-hidden="true"
-                />
+                <Clock size={18} className="mr-2 text-blue-700 flex-shrink-0" aria-hidden="true" />
                 <span>Domingo: Atendimento de emergência</span>
               </li>
             </ul>
@@ -123,16 +99,10 @@ const footer = () => {
 
           {/* Contactos */}
           <div>
-            <h3 className="text-xl font-semibold mb-4 text-gray-900">
-              Contactos
-            </h3>
+            <h3 className="text-xl font-semibold mb-4 text-gray-900">Contactos</h3>
             <ul className="space-y-3">
               <li className="flex items-start">
-                <MapPin
-                  size={18}
-                  className="mr-2 mt-1 flex-shrink-0 text-blue-700"
-                  aria-hidden="true"
-                />
+                <MapPin size={18} className="mr-2 mt-1 flex-shrink-0 text-blue-700" aria-hidden="true" />
                 <address className="text-gray-700 not-italic">
                   Av. António José de Almeida 70, 3720-239 Oliveira de Azeméis
                 </address>
@@ -162,11 +132,7 @@ const footer = () => {
                 </Link>
               </li>
               <li className="flex items-center">
-                <Mail
-                  size={18}
-                  className="mr-2 text-blue-700 flex-shrink-0"
-                  aria-hidden="true"
-                />
+                <Mail size={18} className="mr-2 text-blue-700 flex-shrink-0" aria-hidden="true" />
                 <Link
                   href={`mailto:${emailAddress}`}
                   className="text-gray-700 hover:text-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-700 rounded-md px-1"
@@ -205,8 +171,7 @@ const footer = () => {
             {/* Copyright */}
             <div className="text-center md:text-left">
               <p className="text-sm text-gray-600">
-                &copy; {currentYear} Claudio Eletricista e Picheleiro. Todos os
-                direitos reservados.
+                &copy; {currentYear} Claudio Eletricista e Picheleiro. Todos os direitos reservados.
               </p>
             </div>
 
@@ -236,7 +201,7 @@ const footer = () => {
         </div>
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default footer;
+export default footer

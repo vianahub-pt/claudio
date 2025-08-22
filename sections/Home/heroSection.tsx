@@ -30,7 +30,7 @@ const HeroSection = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href={`https://wa.me/${phoneNumber}`}
-                className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                className="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Solicitar Orçamento via WhatsApp: +351 924 243 818"
@@ -40,7 +40,7 @@ const HeroSection = () => {
 
               <Link
                 href="/projects"
-                className="inline-flex items-center justify-center bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 border border-white/20 hover:border-white/40"
+                className="inline-flex items-center justify-center bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-semibold py-2 px-5 rounded-lg transition-all duration-300 border border-white/20 hover:border-white/40"
               >
                 Ver Projetos
               </Link>

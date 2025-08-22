@@ -26,12 +26,9 @@ const AboutSection = () => {
                 className="w-full h-auto object-cover"
               />
             </div>
-            <div
-              className="absolute -bottom-6 -right-6 !bg-blue-600 !text-white p-4 rounded-lg shadow-lg"
-              style={{ backgroundColor: "#2563eb", color: "#ffffff" }}
-            >
-              <p className="font-bold text-xl">+15</p>
-              <p>Anos de Experiência</p>
+            <div className="absolute -bottom-4 -right-4 bg-blue-600 text-white p-3 rounded-lg shadow-xl border-4 border-white">
+              <p className="font-bold text-lg">+15</p>
+              <p className="text-sm">Anos de Experiência</p>
             </div>
           </div>
 

@@ -80,7 +80,7 @@ const ServicesSection = () => {
         <div className="text-center mt-12">
           <Link
             href="/services"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
           >
             Ver Todos os Serviços
           </Link>

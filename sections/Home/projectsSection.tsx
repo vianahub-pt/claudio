@@ -71,7 +71,7 @@ const ProjectsSection = () => {
         <div className="text-center mt-12">
           <Link
             href="/projects"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-semibold transition-colors"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md font-semibold transition-colors"
           >
             Ver Todos os Projetos
           </Link>
