@@ -57,7 +57,6 @@ export default function ContactoSection() {
       // Dados do formulário
       formDataToSend.append("from", "vianahub@vianahub.pt")
       formDataToSend.append("to", "vianahub@vianahub.pt")
-      formDataToSend.append("cc", "contato@outlook.com")
       formDataToSend.append("subject", `Novo contato do site - ${formData.name}`)
       formDataToSend.append("body", `Nova mensagem recebida através do formulário de contacto do site.`)
       formDataToSend.append("templateCode", "PromoContact")
