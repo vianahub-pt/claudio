@@ -48,11 +48,16 @@ export default function About() {
               <div>
                 <SectionTitle title="Nossa História" subtitle="Como tudo começou" />
 
+                <div className="inline-flex items-center bg-blue-50 border border-blue-200 rounded-full px-4 py-2 mb-6">
+                  <Award size={20} className="text-blue-600 mr-2" />
+                  <span className="text-blue-700 font-semibold">+15 Anos de Experiência</span>
+                </div>
+
                 <p className="text-gray-900 mb-4">
                   A Claudio Eletricista e Picheleiro nasceu da paixão e dedicação do seu fundador, Claudio Antunes, por
-                  oferecer soluções de qualidade em serviços elétricos e de canalização. Com mais de 15 anos de
-                  experiência no setor, Claudio iniciou a sua jornada profissional trabalhando em diversas empresas de
-                  construção civil, onde adquiriu conhecimento e habilidades técnicas.
+                  oferecer soluções de qualidade em serviços elétricos e de canalização. Com vasta experiência no setor,
+                  Claudio iniciou a sua jornada profissional trabalhando em diversas empresas de construção civil, onde
+                  adquiriu conhecimento e habilidades técnicas.
                 </p>
 
                 <p className="text-gray-900 mb-4">
