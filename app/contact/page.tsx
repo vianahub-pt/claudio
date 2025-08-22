@@ -5,20 +5,22 @@ import Footer from "@/components/footer"
 import { useState } from "react"
 import SectionTitle from "@/components/sectionTitle"
 import { Mail, MapPin, Clock, Send } from "lucide-react"
+import { useToast } from "@/hooks/use-toast"
 
 export default function Contact() {
   const phoneNumber = "351924243818"
   const emailAddress = "claudioantunessil@gmail.com"
+  const { toast } = useToast()
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
+    company: "",
     subject: "",
     message: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitMessage, setSubmitMessage] = useState("")
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -31,53 +33,70 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    // Validação simples
     if (!formData.name || !formData.email || !formData.phone || !formData.subject || !formData.message) {
-      setSubmitMessage("Por favor, preencha todos os campos.")
+      toast({
+        title: "Erro de validação",
+        description: "Por favor, preencha todos os campos obrigatórios.",
+        variant: "destructive",
+      })
       return
     }
 
     setIsSubmitting(true)
-    setSubmitMessage("")
 
     try {
       const formDataToSend = new FormData()
       const correlationId = crypto.randomUUID()
 
       formDataToSend.append("from", "vianahub@vianahub.pt")
-      formDataToSend.append("to", "claudioantunessil@gmail.com")
-      formDataToSend.append("subject", `Contacto do site: ${formData.subject}`)
-      formDataToSend.append("body", formData.message)
-      formDataToSend.append("templateCode", "ClaudioEletricistaContact")
+      formDataToSend.append("to", "vianahub@vianahub.pt")
+      formDataToSend.append("cc", "contato@outlook.com")
+      formDataToSend.append("subject", `Novo contato do site - ${formData.name}`)
+      formDataToSend.append("body", "Nova mensagem recebida através do formulário")
+      formDataToSend.append("templateCode", "PromoContact")
       formDataToSend.append("metadata[0].Name", formData.name)
       formDataToSend.append("metadata[0].Email", formData.email)
       formDataToSend.append("metadata[0].Phone", formData.phone)
-      formDataToSend.append("metadata[0].Company", "Site Cláudio Eletricista")
+      formDataToSend.append("metadata[0].Company", formData.company || "Não informado")
+      formDataToSend.append("metadata[0].Message", formData.message)
 
       const response = await fetch("https://www.mail.vianahub.pt/contacts/send-mail", {
         method: "POST",
         headers: {
-          "x-user": "Claudio Eletricista",
-          "x-channel": "Site Oficial",
+          "x-user": "Portal Promo",
+          "x-channel": "Portal Promo",
           "x-correlationid": correlationId,
         },
         body: formDataToSend,
       })
 
       if (response.ok) {
-        setSubmitMessage("Mensagem enviada com sucesso! Entraremos em contacto em breve.")
+        toast({
+          title: "Mensagem enviada!",
+          description: "Mensagem enviada com sucesso! Entraremos em contacto em breve.",
+        })
+
         setFormData({
           name: "",
           email: "",
           phone: "",
+          company: "",
           subject: "",
           message: "",
         })
       } else {
-        setSubmitMessage("Erro ao enviar mensagem. Tente novamente ou contacte-nos diretamente.")
+        toast({
+          title: "Erro no envio",
+          description: "Erro ao enviar mensagem. Tente novamente ou contacte-nos diretamente.",
+          variant: "destructive",
+        })
       }
     } catch (error) {
-      setSubmitMessage("Erro ao enviar mensagem. Tente novamente ou contacte-nos diretamente.")
+      toast({
+        title: "Erro no envio",
+        description: "Erro ao enviar mensagem. Tente novamente ou contacte-nos diretamente.",
+        variant: "destructive",
+      })
     } finally {
       setIsSubmitting(false)
     }
@@ -110,7 +129,7 @@ export default function Contact() {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                      Nome
+                      Nome *
                     </label>
                     <input
                       type="text"
@@ -118,6 +137,7 @@ export default function Contact() {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
+                      required
                       className="w-full px-4 py-3 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
                       placeholder="O seu nome"
                     />
@@ -125,7 +145,7 @@ export default function Contact() {
 
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                      Email
+                      Email *
                     </label>
                     <input
                       type="email"
@@ -133,6 +153,7 @@ export default function Contact() {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
+                      required
                       className="w-full px-4 py-3 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
                       placeholder="o.seu.email@exemplo.com"
                     />
@@ -140,7 +161,7 @@ export default function Contact() {
 
                   <div>
                     <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                      Telefone
+                      Telefone *
                     </label>
                     <input
                       type="tel"
@@ -148,14 +169,30 @@ export default function Contact() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
+                      required
                       className="w-full px-4 py-3 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
                       placeholder="+351 xxx xxx xxx"
                     />
                   </div>
 
                   <div>
+                    <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
+                      Empresa
+                    </label>
+                    <input
+                      type="text"
+                      id="company"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
+                      placeholder="Nome da sua empresa (opcional)"
+                    />
+                  </div>
+
+                  <div>
                     <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-                      Assunto
+                      Assunto *
                     </label>
                     <input
                       type="text"
@@ -163,6 +200,7 @@ export default function Contact() {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
+                      required
                       className="w-full px-4 py-3 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
                       placeholder="Assunto da sua mensagem"
                     />
@@ -170,13 +208,14 @@ export default function Contact() {
 
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                      Mensagem
+                      Mensagem *
                     </label>
                     <textarea
                       id="message"
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
+                      required
                       rows={5}
                       className="w-full px-4 py-3 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-vertical text-gray-900"
                       placeholder="Descreva o seu projeto ou dúvida..."
@@ -193,16 +232,6 @@ export default function Contact() {
                     <Send size={20} className="mr-2" />
                     {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
                   </button>
-
-                  {submitMessage && (
-                    <div
-                      className={`p-4 rounded-md ${
-                        submitMessage.includes("sucesso") ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
-                      }`}
-                    >
-                      {submitMessage}
-                    </div>
-                  )}
                 </form>
               </div>
             </div>
@@ -313,7 +342,7 @@ export default function Contact() {
         </section>
       </main>
 
-      <Footer />      
+      <Footer />
     </>
   )
 }
