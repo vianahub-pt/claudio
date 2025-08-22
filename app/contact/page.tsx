@@ -1,108 +1,16 @@
-"use client"
-
-import type React from "react"
-
-import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Mail, Phone, MapPin, Clock } from "lucide-react"
-import { useToast } from "@/hooks/use-toast"
 import Footer from "@/components/footer"
 
 export default function ContactoSection() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    company: "",
-    message: "",
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const { toast } = useToast()
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
-  }
-
-  const generateCorrelationId = () => {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
-      const r = (Math.random() * 16) | 0
-      const v = c == "x" ? r : (r & 0x3) | 0x8
-      return v.toString(16)
-    })
-  }
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-
-    try {
-      // Criar FormData para multipart/form-data
-      const formDataToSend = new FormData()
-
-      // Headers serão enviados como headers HTTP
-      const headers = {
-        "x-user": "Portal Promo",
-        "x-channel": "Portal Promo",
-        "x-correlationid": generateCorrelationId(),
-      }
-
-      // Dados do formulário
-      formDataToSend.append("from", "vianahub@vianahub.pt")
-      formDataToSend.append("to", "vianahub@vianahub.pt")
-      formDataToSend.append("subject", `Novo contato do site - ${formData.name}`)
-      formDataToSend.append("body", `Nova mensagem recebida através do formulário de contacto do site.`)
-      formDataToSend.append("templateCode", "ClaudioEletricistaContact")
-
-      // Metadata
-      formDataToSend.append("metadata[0].Name", formData.name)
-      formDataToSend.append("metadata[0].Email", formData.email)
-      formDataToSend.append("metadata[0].Phone", formData.phone || "")
-      formDataToSend.append("metadata[0].Company", formData.company || "")
-      formDataToSend.append("metadata[0].Message", formData.message)
-
-      const response = await fetch("https://www.mail.vianahub.pt/contacts/send-mail", {
-        method: "POST",
-        headers: headers,
-        body: formDataToSend,
-      })
-
-      if (response.ok) {
-        toast({
-          title: "Mensagem enviada com sucesso!",
-          description: "Obrigado pelo seu contacto. Responderemos em breve.",
-          duration: 5000,
-        })
-
-        // Reset form
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          company: "",
-          message: "",
-        })
-      } else {
-        throw new Error("Erro no envio")
-      }
-    } catch (error) {
-      console.error("Erro ao enviar mensagem:", error)
-      toast({
-        title: "Erro ao enviar mensagem",
-        description: "Ocorreu um erro ao enviar a sua mensagem. Tente novamente ou contacte-nos diretamente.",
-        variant: "destructive",
-        duration: 5000,
-      })
-    } finally {
-      setIsSubmitting(false)
-    }
+  const generateStaticCorrelationId = () => {
+    const timestamp = Date.now().toString(36)
+    const random = Math.floor(Math.random() * 1000000).toString(36)
+    return `contact-${timestamp}-${random}`
   }
 
   return (
@@ -166,91 +74,60 @@ export default function ContactoSection() {
                 </Card>
               </div>
 
-              {/* Formulário de Contacto */}
               <Card>
                 <CardHeader>
                   <CardTitle>Envie-nos uma Mensagem</CardTitle>
                   <CardDescription>Preencha o formulário abaixo e entraremos em contacto consigo</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <form onSubmit={handleSubmit} className="space-y-4">
+                  <form action="https://www.mail.vianahub.pt/contacts/send-mail" method="POST" className="space-y-4">
+                    {/* Hidden fields for API */}
+                    <input type="hidden" name="from" value="vianahub@vianahub.pt" />
+                    <input type="hidden" name="to" value="vianahub@vianahub.pt" />
+                    <input type="hidden" name="templateCode" value="ClaudioEletricistaContact" />
+                    <input type="hidden" name="x-user" value="Portal Promo" />
+                    <input type="hidden" name="x-channel" value="Portal Promo" />
+                    <input type="hidden" name="x-correlationid" value={generateStaticCorrelationId()} />
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="name">Nome *</Label>
-                        <Input
-                          id="name"
-                          name="name"
-                          type="text"
-                          placeholder="O seu nome"
-                          required
-                          value={formData.name}
-                          onChange={handleInputChange}
-                          disabled={isSubmitting}
-                        />
+                        <Input id="name" name="metadata[0].Name" type="text" placeholder="O seu nome" required />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="email">Email *</Label>
                         <Input
                           id="email"
-                          name="email"
+                          name="metadata[0].Email"
                           type="email"
                           placeholder="o.seu.email@exemplo.com"
                           required
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          disabled={isSubmitting}
                         />
                       </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="phone">Telefone</Label>
-                        <Input
-                          id="phone"
-                          name="phone"
-                          type="tel"
-                          placeholder="+351 xxx xxx xxx"
-                          value={formData.phone}
-                          onChange={handleInputChange}
-                          disabled={isSubmitting}
-                        />
+                        <Input id="phone" name="metadata[0].Phone" type="tel" placeholder="+351 xxx xxx xxx" />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="company">Empresa</Label>
-                        <Input
-                          id="company"
-                          name="company"
-                          type="text"
-                          placeholder="Nome da empresa"
-                          value={formData.company}
-                          onChange={handleInputChange}
-                          disabled={isSubmitting}
-                        />
+                        <Input id="company" name="metadata[0].Company" type="text" placeholder="Nome da empresa" />
                       </div>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="message">Mensagem *</Label>
                       <Textarea
                         id="message"
-                        name="message"
+                        name="metadata[0].Message"
                         placeholder="Descreva o seu projeto ou dúvida..."
                         className="min-h-[120px]"
                         required
-                        value={formData.message}
-                        onChange={handleInputChange}
-                        disabled={isSubmitting}
                       />
                     </div>
 
-                    <Button type="submit" className="w-full bg-orange-500 hover:bg-orange-600" disabled={isSubmitting}>
-                      {isSubmitting ? (
-                        <>
-                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                          Enviando...
-                        </>
-                      ) : (
-                        "Enviar Mensagem"
-                      )}
+                    <Button type="submit" className="w-full bg-orange-500 hover:bg-orange-600">
+                      Enviar Mensagem
                     </Button>
                   </form>
                 </CardContent>
