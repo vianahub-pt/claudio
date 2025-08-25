@@ -6,6 +6,38 @@ export const metadata: Metadata = {
 }
 
 export default function ContactoPage() {
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    
+    const formData = new FormData(e.currentTarget)
+    const nome = formData.get('nome') as string
+    const email = formData.get('email') as string
+    const telefone = formData.get('telefone') as string
+    const assunto = formData.get('assunto') as string
+    const mensagem = formData.get('mensagem') as string
+
+    // Create mailto link
+    const subject = encodeURIComponent(`${assunto} - ${nome}`)
+    const body = encodeURIComponent(`
+Nome: ${nome}
+E-mail: ${email}
+Telefone: ${telefone}
+Assunto: ${assunto}
+
+Mensagem:
+${mensagem}
+    `)
+
+    const mailtoLink = `mailto:vianahub@vianahub.pt?subject=${subject}&body=${body}`
+    
+    if (typeof window !== 'undefined') {
+      window.location.href = mailtoLink
+    }
+  }
+
+
+
   return (
     <main className="min-h-screen bg-gray-900 pt-16 page-transition">
       <div className="container mx-auto px-4 py-16">
@@ -46,7 +78,7 @@ export default function ContactoPage() {
             <div className="bg-gray-800 rounded-lg p-8">
               <h2 className="text-2xl font-semibold text-white mb-6">Solicitar Orçamento</h2>
 
-              <form className="space-y-4">
+              <form className="space-y-4" onSubmit={handleSubmit}>
                 <div>
                   <label htmlFor="nome" className="block text-sm font-medium text-white mb-2">
                     Nome Completo
@@ -82,24 +114,21 @@ export default function ContactoPage() {
                     id="telefone"
                     name="telefone"
                     className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-sky-400 transition-colors"
+                    required
                   />
                 </div>
 
                 <div>
                   <label htmlFor="servico" className="block text-sm font-medium text-white mb-2">
-                    Tipo de Serviço
+                    Assunto
                   </label>
-                  <select
-                    id="servico"
-                    name="servico"
+                  <input
+                    type="text"
+                    id="assunto"
+                    name="assunto"
                     className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-sky-400 transition-colors"
-                  >
-                    <option value="">Selecione um serviço</option>
-                    <option value="eletricidade">Serviços Elétricos</option>
-                    <option value="pichelaria">Serviços de Pichelaria</option>
-                    <option value="manutencao">Manutenção</option>
-                    <option value="outro">Outro</option>
-                  </select>
+                    required
+                  />
                 </div>
 
                 <div>
@@ -117,8 +146,7 @@ export default function ContactoPage() {
 
                 <button
                   type="submit"
-                  className="w-full bg-sky-500 hover:bg-sky-600 text-white py-3 rounded-lg font-semibold transition-colors duration-200"
-                >
+                  className="w-full bg-sky-500 hover:bg-sky-600 text-white py-3 rounded-lg font-semibold transition-colors duration-200">
                   Enviar Pedido
                 </button>
               </form>
