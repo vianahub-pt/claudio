@@ -38,8 +38,6 @@ ${mensagem}
     }
   }
 
-
-
   return (
     <main className="min-h-screen bg-gray-900 pt-16 page-transition">
       <div className="container mx-auto px-4 py-16">
