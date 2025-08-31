@@ -121,7 +121,7 @@ ${mensagem}
           <div className="bg-gray-800 rounded-lg p-8">
             <h2 className="text-2xl font-semibold text-white mb-6 text-center">Entre em Contacto</h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="text-center">
                 <h3 className="text-lg font-medium text-white mb-2">Telefone</h3>
                 <p className="text-gray-300">+351 924 243 818</p>
