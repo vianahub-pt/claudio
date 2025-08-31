@@ -127,7 +127,7 @@ ${mensagem}
 
               <div className="text-center">
                 <h3 className="text-lg font-medium text-white mb-2">Localização</h3>
-                <p className="text-gray-300">Portugal</p>
+                <p className="text-gray-300">Oliveira de Azeméis, Portugal</p>
               </div>
 
               <div className="text-center">
