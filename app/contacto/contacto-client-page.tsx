@@ -141,8 +141,8 @@ ${mensagem}
                 <h3 className="text-lg font-medium text-white mb-2">Horário de Atendimento</h3>
                 <div className="text-gray-300 space-y-1">
                   <p className="text-sm">Seg-Sex: 08:00-18:00</p>
-                  <p className="text-sm">Sáb: 09:00-13:00</p>
-                  <p className="text-sm">Dom: Fechado</p>
+                  <p className="text-sm">Sáb: Fechado</p>
+                  <p className="text-sm">Dom: Plantão</p>
                 </div>
               </div>
             </div>
