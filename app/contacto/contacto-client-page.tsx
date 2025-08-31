@@ -128,11 +128,6 @@ ${mensagem}
               </div>
 
               <div className="text-center">
-                <h3 className="text-lg font-medium text-white mb-2">Email</h3>
-                <p className="text-gray-300">info@claudioeletricista.pt</p>
-              </div>
-
-              <div className="text-center">
                 <h3 className="text-lg font-medium text-white mb-2">Localização</h3>
                 <p className="text-gray-300">Portugal</p>
               </div>
