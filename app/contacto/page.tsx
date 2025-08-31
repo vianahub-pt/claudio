@@ -51,7 +51,7 @@ ${mensagem}
               <div className="space-y-6">
                 <div>
                   <h3 className="text-lg font-medium text-white mb-2">Telefone</h3>
-                  <p className="text-gray-300">+351 XXX XXX XXX</p>
+                  <p className="text-gray-300">+351 +351 924 243 818</p>
                 </div>
 
                 <div>
