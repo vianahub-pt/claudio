@@ -46,36 +46,6 @@ ${mensagem}
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="bg-gray-800 rounded-lg p-8">
-              <h2 className="text-2xl font-semibold text-white mb-6">Entre em Contacto</h2>
-
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-lg font-medium text-white mb-2">Telefone</h3>
-                  <p className="text-gray-300">+351 +351 924 243 818</p>
-                </div>
-
-                <div>
-                  <h3 className="text-lg font-medium text-white mb-2">Email</h3>
-                  <p className="text-gray-300">info@claudioeletricista.pt</p>
-                </div>
-
-                <div>
-                  <h3 className="text-lg font-medium text-white mb-2">Localização</h3>
-                  <p className="text-gray-300">Portugal</p>
-                </div>
-
-                <div>
-                  <h3 className="text-lg font-medium text-white mb-2">Horário de Atendimento</h3>
-                  <div className="text-gray-300 space-y-1">
-                    <p>Segunda a Sexta: 08:00 - 18:00</p>
-                    <p>Sábado: 09:00 - 13:00</p>
-                    <p>Domingo: Fechado</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-gray-800 rounded-lg p-8">
               <h2 className="text-2xl font-semibold text-white mb-6">Solicitar Orçamento</h2>
 
               <form className="space-y-4" onSubmit={handleSubmit}>
@@ -150,6 +120,38 @@ ${mensagem}
                   Enviar Pedido
                 </button>
               </form>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="bg-gray-800 rounded-lg p-8">
+              <h2 className="text-2xl font-semibold text-white mb-6">Entre em Contacto</h2>
+
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-lg font-medium text-white mb-2">Telefone</h3>
+                  <p className="text-gray-300">+351 +351 924 243 818</p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium text-white mb-2">Email</h3>
+                  <p className="text-gray-300">info@claudioeletricista.pt</p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium text-white mb-2">Localização</h3>
+                  <p className="text-gray-300">Portugal</p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-medium text-white mb-2">Horário de Atendimento</h3>
+                  <div className="text-gray-300 space-y-1">
+                    <p>Segunda a Sexta: 08:00 - 18:00</p>
+                    <p>Sábado: 09:00 - 13:00</p>
+                    <p>Domingo: Fechado</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
