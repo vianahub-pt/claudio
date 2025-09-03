@@ -4,18 +4,18 @@ export function Footer() {
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="font-bold text-lg text-white mb-4">
+            <h3 className="font-bold text-lg text-sky-400 mb-4">
               Claudio Eletricista e Picheleiro
             </h3>
-            <p className="text-gray-400 text-sm">
+            <p className="text-white text-sm">
               Serviços profissionais de eletricidade e pichelaria com qualidade
               e confiança.
             </p>
           </div>
 
           <div>
-            <h4 className="font-semibold text-white mb-4">Serviços</h4>
-            <ul className="space-y-2 text-sm text-gray-400">
+            <h4 className="font-semibold text-sky-400 mb-4">Serviços</h4>
+            <ul className="space-y-2 text-sm text-white">
               <li>Instalações Elétricas</li>
               <li>Reparações</li>
               <li>Pichelaria</li>
@@ -24,12 +24,13 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold text-white mb-4">Contacto</h4>
-            <div className="space-y-2 text-sm text-gray-400">
+            <h4 className="font-semibold text-sky-400 mb-4">Contacto</h4>
+            <div className="space-y-2 text-sm text-white">
               <p>Telefone: +351 924 243 818</p>
               <p>Portugal</p>
             </div>
           </div>
+          <p />
         </div>
 
         <div className="border-t border-metallic-gray/30 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center">
@@ -45,7 +46,7 @@ export function Footer() {
                 href="https://www.promo.vianahub.pt"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-metallic-gray hover:text-blood-red transition-colors text-sm sm:text-base"
+                className="text-orange-300 hover:text-blood-red transition-colors text-sm sm:text-base"
               >
                 By VianaHub
               </a>
