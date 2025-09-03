@@ -32,11 +32,25 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-6 text-center">
-          <p className="text-gray-500 text-sm">
-            © 2024 Claudio Eletricista e Picheleiro. Todos os direitos
-            reservados.
-          </p>
+        <div className="border-t border-metallic-gray/30 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center">
+          <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 mb-4 sm:mb-0">
+            <p className="text-metallic-gray text-xs sm:text-sm text-center sm:text-left">
+              © 2024 Claudio Eletricista e Picheleiro. Todos os direitos
+              reservados.
+            </p>
+          </div>
+          <div className="flex items-center space-x-2">
+            <p className="text-blood-red text-xs sm:text-sm font-punk">
+              <a
+                href="https://www.promo.vianahub.pt"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-metallic-gray hover:text-blood-red transition-colors text-sm sm:text-base"
+              >
+                By VianaHub
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
