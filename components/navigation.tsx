@@ -71,7 +71,7 @@ export function Navigation() {
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between p-6 border-b border-gray-800">
+        <div className="flex items-center justify-between p-6 border-b border-gray-800 bg-black">
           <div className="text-sky-400 font-bold text-lg tracking-wider">CLAUDIO ELETRICISTA</div>
           <button
             onClick={closeMenu}
@@ -82,14 +82,14 @@ export function Navigation() {
           </button>
         </div>
 
-        <div className="flex flex-col pt-8">
+        <div className="flex flex-col pt-8 bg-black">
           {navItems.map((item, index) => (
             <Link
               key={item.href}
               href={item.href}
               onClick={closeMenu}
-              className={`text-white text-lg font-medium tracking-wide py-6 px-8 border-b border-gray-800/50 transition-colors hover:text-sky-400 hover:bg-gray-900/30 ${
-                pathname === item.href ? "text-sky-400 bg-gray-900/50" : ""
+              className={`text-white text-lg font-medium tracking-wide py-6 px-8 border-b border-gray-800/50 transition-colors hover:text-sky-400 hover:bg-gray-900 bg-black ${
+                pathname === item.href ? "text-sky-400 bg-gray-900" : ""
               }`}
             >
               {item.label}
