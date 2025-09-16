@@ -67,12 +67,12 @@ export function Navigation() {
       {isMenuOpen && <div className="fixed inset-0 bg-black/50 z-40 md:hidden" onClick={closeMenu} />}
 
       <div
-        className={`fixed top-0 right-0 h-full w-80 bg-black transform transition-transform duration-300 ease-in-out z-50 md:hidden border-l-4 border-red-600 ${
+        className={`fixed top-0 right-0 h-full w-80 bg-black/95 backdrop-blur-sm transform transition-transform duration-300 ease-in-out z-50 md:hidden border-l-4 border-red-600 ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <div className="flex items-center justify-between p-6 border-b border-gray-800">
-          <div className="text-red-600 font-bold text-lg tracking-wider">CLAUDIO ELETRICISTA</div>
+          <div className="text-sky-400 font-bold text-lg tracking-wider">CLAUDIO ELETRICISTA</div>
           <button
             onClick={closeMenu}
             className="text-white hover:text-red-600 transition-colors"
